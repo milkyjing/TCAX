@@ -1,0 +1,2 @@
+﻿gcc -shared -std=c99 -Wall -O3 -o _cairo.pyd -DHAVE_DECLSPEC_DLL -DPy_ENABLE_SHARED cairomodule.c context.c font.c matrix.c path.c pattern.c surface.c -I"/d/Program Files/Python32/include" -L"/d/Program Files/Python32/libs" -I/usr/local/include/cairo -L/usr/local/lib -lcairo -lpixman-1 -lpng -lfreetype -lz -lpython32 -lgdi32 -lmsimg32 -Wl,--enable-runtime-pseudo-reloc -static
+strip --strip-all _cairo.pyd

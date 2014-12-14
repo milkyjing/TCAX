@@ -1,0 +1,11 @@
+﻿DONE: add support for other color space.
+TODO: add support for VirtualDub and DirectShow (Auto-loaded)
+TODO: make it configurable of the number of threads to use
+DONE: finish the fundamental code (functionality) of DirectShow Interface
+DONE: add functions to retrieve the filename of the input video file
+DONE: color space issues
+DONE: retrieve the frame index according to the time stamp
+TODO: make tcasFilter robuster
+TODO: optimize the performance of color space convertion (yuv <--> rgb)
+TODO: optimize the performance of the direct show interface of tcasFilter
+TODO: add auto-loading support (by setting a higher merit)

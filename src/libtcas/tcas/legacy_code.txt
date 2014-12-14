@@ -1,0 +1,327 @@
+﻿
+/**
+ * TCAS_File structure is used for handling TCAS file I/O. 
+ * Remark: you can change data members except for `fp' freely, 
+ * the data members of TCAS_File can be used as `global' variables and can pass through functions.
+ */
+typedef struct _tcas_file {
+    FILE *fp;             /**< a pointer to FILE structure */
+    tcas_unit flag;       /**< use as a temp variable to hold the flag of the TCAS file */
+    tcas_unit minTime;    /**< use as a temp variable to hold the starting time of the TCAS FX */
+    tcas_unit maxTime;    /**< use as a temp variable to hold the end time of the TCAS FX */
+    tcas_unit chunks;     /**< use as a temp variable to hold the data chunks of the TCAS file */
+    tcas_unit temp;       /**< use as a temp variable */
+} TCAS_File, *TCAS_pFile;
+
+/**
+ * Create a TCAS frame. 
+ * Remark: the function supports for compressed TCAS file. 
+ *
+ * @param pFile a pointer to TCAS_File structure
+ * @param pHeader a pointer to TCAS_Header structure
+ * @param pIndex the address of TCAS_Index array which holds the parsed index of compressed TCAS file, TCAS_Index.first means firstFrame and TCAS_Index.last means lastFrame
+ * @param n specify which frame is going to create
+ * @param targetWidth width of the target video
+ * @param targetHeight height of the target video
+ * @param pBuf a pointer to a block of memory which is going to hold the TCAS frame
+ * @return TCAS_Error_Code
+ */
+extern TCAS_Error_Code libtcas_create_tcas_frame(TCAS_pFile pFile, const TCAS_pHeader pHeader, const TCAS_pIndex pIndex, tcas_u32 n, tcas_u16 targetWidth, tcas_u16 targetHeight, tcas_byte **pBuf);
+
+
+
+TCAS_Error_Code libtcas_create_tcas_frame(TCAS_pFile pFile, const TCAS_pHeader pHeader, const TCAS_pIndex pIndex, tcas_u32 n, tcas_u16 targetWidth, tcas_u16 targetHeight, tcas_byte **pBuf) {
+    TCAS_Chunk chunk;
+    tcas_u16 width, height;
+    tcas_u32 i, pitch, size;
+    tcas_byte *rgba;
+    if (TCAS_FILE_TYPE_COMPRESSED == GETHI16B(pHeader->flag)) {
+        width = GETPOSX(pHeader->resolution);
+        height = GETPOSY(pHeader->resolution);
+        pitch = (width << 2) * sizeof(tcas_byte);
+        size = height * pitch;
+        rgba = (tcas_byte *)malloc(size);
+        memset(rgba, 0, size);
+        for (i = 0; i < pHeader->chunks; i++) {
+            if (n >= pIndex[i].first && n < pIndex[i].last) {
+                libtcas_read_specified_chunk(pFile, ((tcas_s64)pIndex[i].offset) << 2, &chunk);
+                libtcas_convert_chunks_to_rgba(&chunk, width, height, rgba);
+                libtcas_free_chunk(&chunk);
+            }
+        }
+        if (!(width == targetWidth && height == targetHeight)) {
+            tcas_byte *src = rgba;
+            libtcas_resample_rgba(src, width, height, &rgba, targetWidth, targetHeight);
+            free(src);
+        }
+        *pBuf = rgba;
+        return tcas_error_success;
+    }
+    return tcas_error_file_type_not_support;
+}
+
+
+
+
+
+
+
+Linear timing TCAS files: obselete, use compressed TCAS file with linearized index instead  Revision 66
+
+
+
+/**
+ * Linearize compressed chunks to linear chunks streams.
+ * @param pChunks the address of TCAS_Chunk array that is going to be linearized
+ * @param chunks the amount of input compressed chunks
+ * @param pChunkStreams a pointer to VectorPtr in which Vector will hold several chunk streams that contains linear chunks
+ * @param keepChunks TCAS_TRUE - keep chunks, TCAS_FALSE - do not keep the original chunks this will increase performance
+ * @return const TCAS_ChunkStreamsPtr
+ */
+extern const TCAS_ChunkStreamsPtr libtcas_linearize_chunks(TCAS_pChunk pChunks, tcas_u32 chunks, TCAS_ChunkStreamsPtr *pChunkStreams, tcas_bool keepChunks);
+
+
+
+
+
+/* cleanup function for Vector
+ * Note that, since our element of chunkStreams is linearChunks, the cleanup function takes the pointer of an element, 
+ * so the parameter should be TCAS_LinearChunksPtr *
+ */
+static void _vector_clean_linear_chunks(TCAS_LinearChunksPtr *pLinearChunks) {  /* We got the address of linearChunks */
+    vector_clear(*pLinearChunks);  /* We need the content of linearChunks */
+}
+
+/*
+Comment: We can also use
+void _vector_clean_linear_chunks(long pLinearChunks) {
+    vector_clear(*(TCAS_LinearChunksPtr *)pLinearChunks);
+}
+the reason why we cannot use 
+void _vector_clean_linear_chunks(TCAS_LinearChunksPtr pLinearChunks) {
+    vector_clear(pLinearChunks);
+}
+is that with or without a `*' in the parameter declaration the value of
+pLinearChunks will indeed always be the address of linearChunks, the only 
+difference between the two is the type of pLinearChunks!
+So with the same invokation, functions of method 1 and 3 are completely different!
+But why we used to consider them may have the same function? The reason is that 
+we always invoke them in different ways, eg. foo1(&a) and foo2(a)
+*/
+
+/** in this function we use low copy of linear chunks, since we won't delete them by TCAS_LinearChunksPtr, 
+ *  hence increasing performance. But we do use cleanup function to clean up all the memory occupied by TCAS_ChunkStreamsPtr.
+ */
+const TCAS_ChunkStreamsPtr libtcas_linearize_chunks(TCAS_pChunk pChunks, tcas_u32 chunks, TCAS_ChunkStreamsPtr *pChunkStreams, tcas_bool keepChunks) {
+    tcas_u32 i, j, count, lastEndTime;
+    VectorPtr vptr;  /* to hold endTime of a linear chunk stream */
+    TCAS_ChunkStreamsPtr chunkStreams;
+    TCAS_LinearChunksPtr linearChunksTemp;  /* temporary use */
+    vector_create(&vptr, sizeof(tcas_u32), 0, NULL, NULL);  /* default copy and cleanup functions will be used */
+    vector_create(&chunkStreams, sizeof(TCAS_LinearChunksPtr), 0, NULL, (vector_cleanup_func)_vector_clean_linear_chunks);  /* every chunk stream holds several linear chunks */
+    if (keepChunks) {
+        for (i = 0; i < chunks; i++) {
+            count = vector_get_size(chunkStreams);
+            for (j = 0; j < count; j++) {
+                vector_retrieve(vptr, j, &lastEndTime);
+                if (pChunks[i].startTime >= lastEndTime) {
+                    vector_retrieve(chunkStreams, j, &linearChunksTemp);
+                    vector_push_back(linearChunksTemp, &pChunks[i]);  /* copy compressed chunk function invoked */
+                    vector_assign(vptr, j, &pChunks[i].endTime);
+                    break;
+                }
+            }
+            if (j == count) {
+                vector_create(&linearChunksTemp, sizeof(TCAS_Chunk), 1, (vector_copy_func)libtcas_copy_chunk, (vector_cleanup_func)libtcas_free_chunk);  /* use deep copy of chunk */
+                vector_assign(linearChunksTemp, 0, &pChunks[i]);
+                vector_push_back(chunkStreams, &linearChunksTemp);  /* put the value of linearChunksTemp itself not the value it pointed to */
+                vector_push_back(vptr, &pChunks[i].endTime);
+            }
+        }
+    } else {  /* if do not keep the original chunks we can simply use low copy of chunk, and memset the original ones, this will increase performance */
+        for (i = 0; i < chunks; i++) {
+            count = vector_get_size(chunkStreams);
+            for (j = 0; j < count; j++) {
+                vector_retrieve(vptr, j, &lastEndTime);
+                if (pChunks[i].startTime >= lastEndTime) {
+                    vector_retrieve(chunkStreams, j, &linearChunksTemp);
+                    vector_push_back(linearChunksTemp, &pChunks[i]);  /* use low copy of chunk */
+                    vector_assign(vptr, j, &pChunks[i].endTime);
+                    memset(&pChunks[i], 0, sizeof(TCAS_Chunk));  /* erase the original one, should be after vector_assign function */
+                    break;
+                }
+            }
+            if (j == count) {
+                vector_create(&linearChunksTemp, sizeof(TCAS_Chunk), 1, NULL, (vector_cleanup_func)libtcas_free_chunk);  /* use low copy default function */
+                vector_assign(linearChunksTemp, 0, &pChunks[i]);  /* use low copy of chunk */
+                vector_push_back(chunkStreams, &linearChunksTemp);  /* put the value of linearChunksTemp itself not the value it pointed to */
+                vector_push_back(vptr, &pChunks[i].endTime);
+                memset(&pChunks[i], 0, sizeof(TCAS_Chunk));  /* erase the original one, should be after vector_assign function */
+            }
+        }
+    }
+    *pChunkStreams = chunkStreams;
+    return (const TCAS_ChunkStreamsPtr)chunkStreams;
+}
+
+
+
+
+
+
+
+/* implementation of strategy sequence & nearest (others are sequence & average, random & nearest, random & average, which are not implemented yet */
+const TCAS_pChunk libtcas_generate_intermediate_frame_chunk(const TCAS_pChunk pKeyFrameChunkStart, const TCAS_pChunk pKeyFrameChunkEnd, tcas_u32 first, tcas_u32 last, tcas_u32 n, TCAS_pChunk *ppChunk) {
+    TCAS_pChunk pChunk;
+    tcas_u32 i, i1, i2, count;
+    double factor;
+    if (last == first) {
+        pChunk = (TCAS_pChunk)malloc(sizeof(TCAS_Chunk));
+        libtcas_copy_chunk(pChunk, pKeyFrameChunkStart);
+    } else {
+        factor = (n - first) / (double)(last - first);
+        count = GETCOUNT(pKeyFrameChunkStart->cltp);
+        pChunk = (TCAS_pChunk)malloc(sizeof(TCAS_Chunk));
+        pChunk->startTime = n;  /* actually startTime stores frame index not time */
+        pChunk->endTime = n;    /* actually endTime stores frame index not time */
+        pChunk->cltp = pKeyFrameChunkStart->cltp;
+        pChunk->pos_and_color = (tcas_unit *)malloc(count * (sizeof(tcas_unit) << 1));
+        for (i = 0; i < count; i++) {
+            i1 = i << 1;
+            i2 = i1 + 1;
+            pChunk->pos_and_color[i1] = LINEAR_INTERPOLATION_POS(pKeyFrameChunkStart->pos_and_color[i1], pKeyFrameChunkEnd->pos_and_color[i1], factor);
+            pChunk->pos_and_color[i2] = LINEAR_INTERPOLATION_RGBA(pKeyFrameChunkStart->pos_and_color[i2], pKeyFrameChunkEnd->pos_and_color[i2], factor);
+        }
+    }
+    if (ppChunk)
+        *ppChunk = pChunk;
+    return (const TCAS_pChunk)pChunk;
+}
+
+
+
+
+
+
+/* implementation of strategy sequence & nearest (others are sequence & average, random & nearest, random & average, which are not implemented yet */
+const TCAS_pChunk libtcas_generate_intermediate_frame_chunk(const TCAS_pChunk pKeyFrameChunkStart, const TCAS_pChunk pKeyFrameChunkEnd, tcas_u32 first, tcas_u32 last, tcas_u32 n, TCAS_pChunk *ppChunk) {
+    TCAS_pChunk pChunk;
+    if (last == first) {
+        pChunk = (TCAS_pChunk)malloc(sizeof(TCAS_Chunk));
+        libtcas_copy_chunk(pChunk, pKeyFrameChunkStart);
+    } else {
+        tcas_u32 i, i1, i2, index, count, num;
+        double x, y, factor, f;
+        int xx, yy;
+        double rr, gg, bb, aa, rgba;
+        factor = (n - first) / (double)(last - first);
+        num = GETCOUNT(pKeyFrameChunkStart->cltp);
+        count = num << 2;  /* we are using bilinear filtering to smooth the motion and avoid jerky */
+        pChunk = (TCAS_pChunk)malloc(sizeof(TCAS_Chunk));
+        pChunk->startTime = n;  /* actually startTime stores frame index not time */
+        pChunk->endTime = n;    /* actually endTime stores frame index not time */
+        pChunk->cltp = MAKECLTP(count, GETLAYER(pKeyFrameChunkStart->cltp), GETTYPE(pKeyFrameChunkStart->cltp), GETPAIR(pKeyFrameChunkStart->cltp));
+        pChunk->pos_and_color = (tcas_unit *)malloc(count * (sizeof(tcas_unit) << 1));
+        index = 0;
+        for (i = 0; i < num; i++) {
+            i1 = i << 1;
+            i2 = i1 + 1;
+            x = GETPOSX(pKeyFrameChunkStart->pos_and_color[i1]) + (GETPOSX(pKeyFrameChunkEnd->pos_and_color[i1]) - GETPOSX(pKeyFrameChunkStart->pos_and_color[i1])) * factor;
+            y = GETPOSY(pKeyFrameChunkStart->pos_and_color[i1]) + (GETPOSY(pKeyFrameChunkEnd->pos_and_color[i1]) - GETPOSY(pKeyFrameChunkStart->pos_and_color[i1])) * factor;
+            xx = (int)x;
+            yy = (int)y;
+            rr = (int)(GETR(pKeyFrameChunkStart->pos_and_color[i2]) + (GETR(pKeyFrameChunkEnd->pos_and_color[i2]) - GETR(pKeyFrameChunkStart->pos_and_color[i2])) * factor);
+            gg = (int)(GETG(pKeyFrameChunkStart->pos_and_color[i2]) + (GETG(pKeyFrameChunkEnd->pos_and_color[i2]) - GETG(pKeyFrameChunkStart->pos_and_color[i2])) * factor);
+            bb = (int)(GETB(pKeyFrameChunkStart->pos_and_color[i2]) + (GETB(pKeyFrameChunkEnd->pos_and_color[i2]) - GETB(pKeyFrameChunkStart->pos_and_color[i2])) * factor);
+            aa = (int)(GETA(pKeyFrameChunkStart->pos_and_color[i2]) + (GETA(pKeyFrameChunkEnd->pos_and_color[i2]) - GETA(pKeyFrameChunkStart->pos_and_color[i2])) * factor);
+            rgba = MAKERGBA(rr, gg, bb, aa);
+            i1 = index << 1;
+            i2 = i1 + 1;
+            pChunk->pos_and_color[i1] = MAKEPOS(xx, yy);
+            f = (1 - x + xx) * (1 - y + yy);
+            pChunk->pos_and_color[i2] = rgba * f;
+            index++;
+            i1 = index << 1;
+            i2 = i1 + 1;
+            pChunk->pos_and_color[i1] = MAKEPOS(xx + 1, yy);
+            f = (x - xx) * (1 - y + yy);
+            pChunk->pos_and_color[i2] = rgba * f;
+            index++;
+            i1 = index << 1;
+            i2 = i1 + 1;
+            pChunk->pos_and_color[i1] = MAKEPOS(xx, yy + 1);
+            f = (1 - x + xx) * (y - yy);
+            pChunk->pos_and_color[i2] = rgba * f;
+            index++;
+            i1 = index << 1;
+            i2 = i1 + 1;
+            pChunk->pos_and_color[i1] = MAKEPOS(xx + 1, yy + 1);
+            f = (x - xx) * (y - yy);
+            pChunk->pos_and_color[i2] = rgba * f;
+            index++;
+        }
+    }
+    if (ppChunk)
+        *ppChunk = pChunk;
+    return (const TCAS_pChunk)pChunk;
+}
+
+
+
+
+
+
+
+
+
+static void _libtcas_resample_rgba_bilinear(const tcas_byte *src, tcas_u16 width, tcas_u16 height, tcas_byte **pRGBA, tcas_u16 targetWidth, tcas_u16 targetHeight) {
+    tcas_u16 h, w;
+    tcas_u32 pitch, targetPitch, targetSize, targetArea, Dx, Dy, m, n, Sx1, Sy1, Sx2, Sy2;
+    tcas_byte *dst;
+    pitch = width * (sizeof(tcas_byte) << 2);
+    targetPitch = targetWidth * (sizeof(tcas_byte) << 2);
+    targetSize = targetHeight * targetPitch;
+    targetArea = targetWidth * targetHeight;
+    dst = (tcas_byte *)malloc(targetSize);
+    for (h = 0; h < targetHeight; h++) {
+        Dy = h * targetPitch;
+        n = targetHeight - h * height % targetHeight;
+        Sy1 = (h * height / targetHeight) * pitch;               // two pixels on left
+        Sy2 = ((h + 1) * height / targetHeight) * pitch;         // two pixels on right
+        if (height * pitch == Sy2)
+            Sy2 = Sy1;
+        for (w = 0; w < targetWidth; w++) {
+            Dx = w << 2;
+            m = targetWidth - w * width % targetWidth;
+            Sx1 = (w * width / targetWidth) << 2;                 // two pixels on top
+            Sx2 = ((w + 1) * width / targetWidth) << 2;           // two pixels on bottom
+            if (width << 2 == Sx2)
+                Sx2 = Sx1;
+            dst[Dy + Dx]     = (tcas_byte)((m * n * src[Sy1 + Sx1] + \
+                                    (targetWidth - m) * n * src[Sy1 + Sx2] + \
+                                    m * (targetHeight - n) * src[Sy2 + Sx1] + \
+                                    (targetWidth - m) * (targetHeight - n) * src[Sy2 + Sx2]) / targetArea);
+            dst[Dy + Dx + 1] = (tcas_byte)((m * n * src[Sy1 + Sx1 + 1] + \
+                                    (targetWidth - m) * n * src[Sy1 + Sx2 + 1] + \
+                                    m * (targetHeight - n) * src[Sy2 + Sx1 + 1] + \
+                                    (targetWidth - m) * (targetHeight - n) * src[Sy2 + Sx2 + 1]) / targetArea);
+            dst[Dy + Dx + 2] = (tcas_byte)((m * n * src[Sy1 + Sx1 + 2] + \
+                                    (targetWidth - m) * n * src[Sy1 + Sx2 + 2] + \
+                                    m * (targetHeight - n) * src[Sy2 + Sx1 + 2] + \
+                                    (targetWidth - m) * (targetHeight - n) * src[Sy2 + Sx2 + 2]) / targetArea);
+            dst[Dy + Dx + 3] = (tcas_byte)((m * n * src[Sy1 + Sx1 + 3] + \
+                                    (targetWidth - m) * n * src[Sy1 + Sx2 + 3] + \
+                                    m * (targetHeight - n) * src[Sy2 + Sx1 + 3] + \
+                                    (targetWidth - m) * (targetHeight - n) * src[Sy2 + Sx2 + 3]) / targetArea);
+        }
+    }
+    *pRGBA = dst;
+}
+
+
+
+
+
+
+
+

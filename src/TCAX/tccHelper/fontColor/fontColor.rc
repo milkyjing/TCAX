@@ -1,0 +1,179 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, PRC) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON_MAIN           ICON                    "fontColor.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_MAIN DIALOGEX 0, 0, 383, 230
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_OVERLAPPEDWINDOW | WS_EX_STATICEDGE | WS_EX_APPWINDOW
+CAPTION "fontColor for tcax"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO_FONT,20,60,300,122,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_FACE_ID,335,60,26,12,ES_NUMBER,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_FILE_NAME,20,88,205,12,ES_AUTOHSCROLL | ES_READONLY,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    PUSHBUTTON      "Copy",IDC_BTN_COPY_FILE_NAME,245,85,40,17
+    EDITTEXT        IDC_EDIT_FACE_NAME,20,116,205,12,ES_AUTOHSCROLL | ES_READONLY,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    PUSHBUTTON      "Copy",IDC_BTN_COPY_FACE_NAME,245,113,40,17
+    CONTROL         "hide this window when capturing color",IDC_CHECK_HIDE_DLG,
+                    "Button",BS_AUTOCHECKBOX,20,171,149,9
+    DEFPUSHBUTTON   "Capture Color",IDC_BTN_CAPTURE_COLOR,20,193,55,17
+    PUSHBUTTON      "Select Color",IDC_BTN_SELECT_COLOR,80,193,55,17
+    EDITTEXT        IDC_EDIT_COLOR,185,195,40,15,0,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    PUSHBUTTON      "Copy",IDC_BTN_COPY_COLOR,245,193,40,17
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,20,151,341,1
+    PUSHBUTTON      "Exit",IDC_BTN_EXIT,320,193,40,17
+    PUSHBUTTON      "Copy File",IDC_BTN_COPY_FILE,305,85,45,17
+END
+
+IDD_DIALOG_COLOR DIALOGEX 0, 0, 40, 35
+STYLE DS_SETFONT | WS_POPUP
+EXSTYLE WS_EX_TOPMOST
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_MAIN, DIALOG
+    BEGIN
+        VERTGUIDE, 20
+        VERTGUIDE, 70
+        VERTGUIDE, 95
+        VERTGUIDE, 140
+        VERTGUIDE, 165
+        VERTGUIDE, 220
+        VERTGUIDE, 245
+        VERTGUIDE, 320
+        VERTGUIDE, 335
+        VERTGUIDE, 361
+        HORZGUIDE, 72
+        HORZGUIDE, 100
+        HORZGUIDE, 128
+        HORZGUIDE, 180
+        HORZGUIDE, 210
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,3,4,8
+ PRODUCTVERSION 0,3,4,8
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x29L
+#else
+ FILEFLAGS 0x28L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "fontColor - by milkyjing"
+            VALUE "CompanyName", "Ternary Color Fansub"
+            VALUE "FileDescription", "fontColor for TCSub"
+            VALUE "FileVersion", "0, 3, 4, 8"
+            VALUE "InternalName", "tccAssist"
+            VALUE "LegalCopyright", "Copyright (C) 2011 Ternary Color Fansub"
+            VALUE "LegalTrademarks", "milkyjing"
+            VALUE "OriginalFilename", "fontColor.exe"
+            VALUE "PrivateBuild", "False"
+            VALUE "ProductName", "fontColor"
+            VALUE "ProductVersion", "0, 3, 4, 8"
+            VALUE "SpecialBuild", "False"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // Chinese (Simplified, PRC) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

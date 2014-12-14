@@ -1,0 +1,20 @@
+﻿DONE: Linearize compressed tcas data chunks to linear timing tcas files.
+DONE: reserve the order of chunks when linearizing compressed TCAS file.
+OBSELETE: 2-pass compression function, libtcas_2nd_compress_chunks(const TCAS_pChunk pChunks, tcas_u32 chunks, TCAS_pCompChunk pCompChunks, tcas_u32 *pCompChunksCount)
+DONE: Keyframing implementation on compressed TCAS file
+REMOVED: Parse linear timing TCAS files (big issue)
+DONE: Linearize compressed TCAS file in memory using TCAS File Index.
+DONE: libtcas_linearize_file_indexs function, and try to parse.
+OBSELETE: add specifications for compacted index file and linearized index file.
+DONE: parse compressed TCAS file using linearized index
+DONE: test all the implementations about TCAS specification, this would be better to be done after the implementation of tcax, which will be implemented right after finishing the previous TODO
+DONE: start of the TCAX project
+TODO-PUTOFF: try zlib to compress the tcas file
+DONE: refine the mapping methods used in key framing technique
+DONE: refine the linearization algorithm
+DONE: add high-level multi-threaded API support (using threadpool)
+DONE: fix memory leak in key framing utilities (intermediate frame chunks generation)
+DONE: add in-memory tcas file support for hla_mt.c module to improve the performance for real-time rendering.
+DONE: add Linux version of in-memory support functions
+DONE: fix the bug concerning invalid (< 0) positions when generating intermediate frame chunks using bilinear filtering.
+TODO: improve the performance of resampling

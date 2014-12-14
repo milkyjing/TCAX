@@ -1,0 +1,56 @@
+add dir_hack to config xml files' path
+bit depth 8
+
+replace ttf with the latest FreeType (remove ttf project, change the folder name of FreeType to ttf, add project on the FreeType builds directory, rebuild the project, copy freetype.lib to VisualMagick\lib, rename to CORE_RL_ttf_.lib, then rebuild all the projects)
+
+// Visual C++ does not define ssize_t by default.
+#if !defined(__MINGW32__)
+#if defined(_WIN64) 
+typedef __int64 ssize_t;
+#else
+typedef long ssize_t;
+// change to
+typedef __w64 int ssize_t;
+// for compatible with pyconfig.h
+#endif
+#endif
+
+
+CORE_magick annotate.c use _hack_face_set_size() function to replace the FT_Set_Char_Size() function
+
+
+
+#include FT_FREETYPE_H
+#include FT_TRUETYPE_TABLES_H
+
+static void _hack_face_set_size(FT_Face face, double size) {
+    TT_HoriHeader *hori;
+    TT_OS2 *os2;
+    double scale;
+    FT_Size_RequestRec rq;
+    FT_Size_Metrics *mt;
+    hori = (TT_HoriHeader *)FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
+    os2 = (TT_OS2 *)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+    scale = 1;
+    /* VSFilter uses metrics from TrueType OS/2 table, The idea was borrowed from libass */
+    if (hori && os2) {
+        int hori_height;
+        int os2_height;
+        hori_height = hori->Ascender - hori->Descender;
+        os2_height = os2->usWinAscent + os2->usWinDescent;
+        if (hori_height && os2_height)
+            scale = hori_height / (double)os2_height;
+    }
+    rq.type = FT_SIZE_REQUEST_TYPE_REAL_DIM;
+    rq.width = 0;
+    rq.height = (long)(size * scale * 64);
+    rq.horiResolution = 0;
+    rq.vertResolution = 0;
+    FT_Request_Size(face, &rq);
+    mt = &face->size->metrics;
+    mt->ascender = (long)(mt->ascender / scale);
+    mt->descender = (long)(mt->descender / scale);
+    mt->height = (long)(mt->height / scale);
+}
+
+

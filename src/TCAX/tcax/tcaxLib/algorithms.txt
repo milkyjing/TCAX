@@ -1,0 +1,258 @@
+Mask:
+
+only the region of the source PIX which is under the PIX will be displayed.
+
+
+
+
+static void _tcaxlib_face_set_size_(FT_Face face, int size) {
+    TT_HoriHeader *hori;
+    TT_OS2 *os2;
+    double scale;
+    FT_Size_RequestRec rq;
+    FT_Size_Metrics *mt;
+    hori = (TT_HoriHeader *)FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
+    os2 = (TT_OS2 *)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+    scale = 1;
+    /* VSFilter uses metrics from TrueType OS/2 table, The idea was borrowed from libass */
+    if (hori && os2) {
+        int hori_height;
+        int os2_height;
+        hori_height = hori->Ascender - hori->Descender;
+        os2_height = os2->usWinAscent + os2->usWinDescent;
+        if (hori_height && os2_height)
+            scale = hori_height / (double)os2_height;
+    }
+    rq.type = FT_SIZE_REQUEST_TYPE_REAL_DIM;
+    rq.width = 0;
+    rq.height = (long)(size * scale * 64);
+    rq.horiResolution = 0;
+    rq.vertResolution = 0;
+    FT_Request_Size(face, &rq);
+    mt = &face->size->metrics;
+    mt->ascender = (long)(mt->ascender / scale);
+    mt->descender = (long)(mt->descender / scale);
+    mt->height = (long)(mt->height / scale);
+}
+
+/********************************** Borrowed from the Winehq project http://source.winehq.org/git/wine.git/blob/HEAD:/dlls/gdi32/freetype.c ***********/
+
+static LONG calc_ppem_for_height(FT_Face ft_face, LONG height)
+{
+    TT_OS2 *pOS2;
+    TT_HoriHeader *pHori;
+
+    LONG ppem;
+
+    pOS2 = (TT_OS2 *)FT_Get_Sfnt_Table(ft_face, ft_sfnt_os2);
+    pHori = (TT_HoriHeader *)FT_Get_Sfnt_Table(ft_face, ft_sfnt_hhea);
+
+    if(height == 0) height = 16;
+
+    /* Calc. height of EM square:
+     *
+     * For +ve lfHeight we have
+     * lfHeight = (winAscent + winDescent) * ppem / units_per_em
+     * Re-arranging gives:
+     * ppem = units_per_em * lfheight / (winAscent + winDescent)
+     *
+     * For -ve lfHeight we have
+     * |lfHeight| = ppem
+     * [i.e. |lfHeight| = (winAscent + winDescent - il) * ppem / units_per_em
+     * with il = winAscent + winDescent - units_per_em]
+     *
+     */
+
+    if(height > 0) {
+        if(pOS2->usWinAscent + pOS2->usWinDescent == 0)
+            ppem = MulDiv(ft_face->units_per_EM, height,
+                          pHori->Ascender - pHori->Descender);
+        else
+            ppem = MulDiv(ft_face->units_per_EM, height,
+                          pOS2->usWinAscent + pOS2->usWinDescent);
+    }
+    else
+        ppem = -height;
+
+    return ppem;
+}
+
+static DWORD get_font_data(FT_Face ft_face, DWORD table, DWORD offset, LPVOID buf, DWORD cbData)
+{
+    FT_ULong len;
+    FT_Error err;
+
+    if (!FT_IS_SFNT(ft_face)) return GDI_ERROR;
+
+    if(!buf)
+        len = 0;
+    else
+        len = cbData;
+
+    //table = RtlUlongByteSwap( table );  /* MS tags differ in endianness from FT ones */
+
+    /* make sure value of len is the value freetype says it needs */
+    if (buf && len)
+    {
+        FT_ULong needed = 0;
+        err = FT_Load_Sfnt_Table(ft_face, table, offset, NULL, &needed);
+        if( !err && needed < len) len = needed;
+    }
+    err = FT_Load_Sfnt_Table(ft_face, table, offset, (FT_Byte *)buf, &len);
+    if (err)
+    {
+	return GDI_ERROR;
+    }
+    return len;
+}
+
+/*************************************************************
+ * load_VDMX
+ *
+ * load the vdmx entry for the specified height
+ */
+
+#define MS_MAKE_TAG( _x1, _x2, _x3, _x4 ) \
+          ( ( (FT_ULong)_x4 << 24 ) |     \
+            ( (FT_ULong)_x3 << 16 ) |     \
+            ( (FT_ULong)_x2 <<  8 ) |     \
+              (FT_ULong)_x1         )
+
+//#define MS_VDMX_TAG MS_MAKE_TAG('V', 'D', 'M', 'X')
+#define MS_VDMX_TAG MS_MAKE_TAG('X', 'M', 'D', 'V')
+
+typedef struct {
+    BYTE bCharSet;
+    BYTE xRatio;
+    BYTE yStartRatio;
+    BYTE yEndRatio;
+} Ratios;
+
+typedef struct {
+    WORD recs;
+    BYTE startsz;
+    BYTE endsz;
+} VDMX_group;
+
+static USHORT RtlUshortByteSwap(USHORT x) {
+    USHORT temp;
+    temp = (BYTE)x;
+    x = ((x >> 8) | (temp << 8));
+    return x;
+}
+
+#ifdef WORDS_BIGENDIAN
+#define GET_BE_WORD(x) (x)
+#else
+#define GET_BE_WORD(x) RtlUshortByteSwap(x)
+#endif
+
+static LONG load_VDMX(FT_Face ft_face, LONG height)
+{
+    SHORT fontyMax;
+    SHORT fontyMin;
+    WORD hdr[3], tmp;
+    VDMX_group group;
+    BYTE devXRatio, devYRatio;
+    USHORT numRecs, numRatios;
+    DWORD result, offset = -1;
+    LONG ppem = 0;
+    int i;
+
+    result = get_font_data(ft_face, MS_VDMX_TAG, 0, hdr, 6);
+
+    if(result == GDI_ERROR) /* no vdmx table present, use linear scaling */
+	return ppem;
+
+    /* FIXME: need the real device aspect ratio */
+    devXRatio = 1;
+    devYRatio = 1;
+
+    numRecs = GET_BE_WORD(hdr[1]);
+    numRatios = GET_BE_WORD(hdr[2]);
+
+    for(i = 0; i < numRatios; i++) {
+	Ratios ratio;
+
+	offset = (3 * 2) + (i * sizeof(Ratios));
+	get_font_data(ft_face, MS_VDMX_TAG, offset, &ratio, sizeof(Ratios));
+	offset = -1;
+
+	if((ratio.xRatio == 0 &&
+	    ratio.yStartRatio == 0 &&
+	    ratio.yEndRatio == 0) ||
+	   (devXRatio == ratio.xRatio &&
+	    devYRatio >= ratio.yStartRatio &&
+	    devYRatio <= ratio.yEndRatio))
+	    {
+		offset = (3 * 2) + (numRatios * 4) + (i * 2);
+		get_font_data(ft_face, MS_VDMX_TAG, offset, &tmp, 2);
+		offset = GET_BE_WORD(tmp);
+		break;
+	    }
+    }
+
+    if(offset == -1) {
+	return ppem;
+    }
+
+    if(get_font_data(ft_face, MS_VDMX_TAG, offset, &group, 4) != GDI_ERROR) {
+	USHORT recs;
+	BYTE startsz, endsz;
+	WORD *vTable;
+
+	recs = GET_BE_WORD(group.recs);
+	startsz = group.startsz;
+	endsz = group.endsz;
+
+
+	vTable = (WORD *)HeapAlloc(GetProcessHeap(), 0, recs * 6);
+	result = get_font_data(ft_face, MS_VDMX_TAG, offset + 4, vTable, recs * 6);
+	if(result == GDI_ERROR) {
+	    goto end;
+	}
+
+	if(height > 0) {
+	    for(i = 0; i < recs; i++) {
+                SHORT yMax = GET_BE_WORD(vTable[(i * 3) + 1]);
+                SHORT yMin = GET_BE_WORD(vTable[(i * 3) + 2]);
+                ppem = GET_BE_WORD(vTable[i * 3]);
+
+		if(yMax + -yMin == height) {
+		    fontyMax = yMax;
+		    fontyMin = yMin;
+		    break;
+		}
+		if(yMax + -yMin > height) {
+		    if(--i < 0) {
+			ppem = 0;
+			goto end; /* failed */
+		    }
+		    fontyMax = GET_BE_WORD(vTable[(i * 3) + 1]);
+		    fontyMin = GET_BE_WORD(vTable[(i * 3) + 2]);
+                    ppem = GET_BE_WORD(vTable[i * 3]);
+		    break;
+		}
+	    }
+	    if(!fontyMax) {
+		ppem = 0;
+	    }
+	}
+	end:
+	HeapFree(GetProcessHeap(), 0, vTable);
+    }
+
+    return ppem;
+}
+
+static void _tcaxlib_face_set_size(FT_Face face, int size) {
+    long ppem;
+    /* load the VDMX table if we have one */
+    ppem = load_VDMX(face, size);
+    if (ppem == 0)
+        ppem = calc_ppem_for_height(face, size);
+    FT_Set_Pixel_Sizes(face, 0, ppem);
+}
+
+
+

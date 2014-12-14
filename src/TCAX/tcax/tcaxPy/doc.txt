@@ -1,0 +1,20 @@
+﻿
+PY_Error_Code tcxpy_exec_py_script(const wchar_t *filename) {
+    int len, size;
+    char *buf;
+    char *ansiFilename;
+    _tcxpy_sz_unicode_to_ansi(filename, &ansiFilename);
+    len = strlen(ansiFilename);
+    size = 11 + len + 11;
+    buf = (char *)malloc(size * sizeof(char));
+    memcpy(buf, "exec(open('", 11 * sizeof(char));
+    memcpy(buf + 11, ansiFilename, len * sizeof(char));
+    memcpy(buf + 11 + len, "').read())\0", 11 * sizeof(char));
+    free(ansiFilename);
+    PyRun_SimpleString(buf);
+    free(buf);
+    return py_error_success;
+}
+
+
+gcc -o t -Wall test.c py.c -I/root/Python-3.2/ -I/root/Python-3.2/Include/ -I/usr/local/lib/ -lpython3.2m -lm -lpthread -ldl -lutil

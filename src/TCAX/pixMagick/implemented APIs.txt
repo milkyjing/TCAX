@@ -1,0 +1,3 @@
+Initialize or Destroy the ImageMagick Environment: All
+Constitute an Image: ReadImage
+Composite an Image: CompositeImage

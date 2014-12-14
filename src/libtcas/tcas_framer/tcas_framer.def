@@ -1,0 +1,10 @@
+LIBRARY
+EXPORTS
+    tcas_open               @1
+    tcas_get_width          @2
+    tcas_get_height         @3
+    tcas_get_min_frame      @4
+    tcas_get_max_frame      @5
+    tcas_get_fps            @6
+    tcas_get_frame          @7
+    tcas_close              @8

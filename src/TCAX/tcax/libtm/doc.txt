@@ -1,0 +1,51 @@
+﻿
+/**
+ * TM_TextHori structure
+ */
+typedef struct _tm_text_hori {
+    int ascender;
+    int  descender;
+    int *width2D;          /**< Store the Font Width of every Charactor */
+    int *height2D;         /**< Store the Font Height of every Charactor */
+    int *kerning2D;       /**< kerning pair */
+    int *advance2D;       /**< Store the Font Horizon Advance of every Charactor */
+    int *advanceDiff2D;   /**< the sum of Advances before the specified text */
+    int *length1D;         /**< the length (Horizon) of every Dialogue */
+    int *initX2D;          /**< Store the Initial x-position of the left up corner (an7) of a text */
+    int *initY2D;          /**< Store the Initial y-position of the left up corner (an7) a text */
+} TM_TextHori, *TM_pTextHori;
+
+/**
+ * TM_WordHori structure
+ */
+typedef struct _tm_word_hori {
+    ;
+} TM_WordHori, *TM_pWordHori;
+
+/**
+ * TM_AdvHori structure
+ */
+typedef struct _tm_adv_hori {
+    ;
+} TM_AdvHori, *TM_pAdvHori;
+
+/**
+ * TM_TextVert structure
+ */
+typedef struct _tm_text_vert {
+    ;
+} TM_TextVert, *TM_pTextVert;
+
+/**
+ * TM_WordVert structure
+ */
+typedef struct _tm_word_vert {
+    ;
+} TM_WordVert, *TM_pWordVert;
+
+/**
+ * TM_AdvVert structure
+ */
+typedef struct _tm_adv_vert {
+    ;
+} TM_AdvVert, *TM_pAdvVert;

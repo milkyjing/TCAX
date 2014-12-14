@@ -1,0 +1,83 @@
+﻿Add _tcxlib_get_texts_pix
+
+and add feature of getting text pix with minus border. (bord_inside = true)
+
+-----------------------------------------------------
+
+Add alternative version of function tcxlib_get_pix_from_texts function (that allow user to initialize the font one time) : Done
+
+Add tcxPy_Fin in tcxPy.py module and in TCC file and check if there is memory leak : Done
+
+Add functions for writing tcs and ass files, Tips: TCX_PyTcsFile = CreateTcsFile(filename, width, height, fps), Tcs Header and Tcs File is included in the TCX_PyTcsFile structure, WriteTcsFile(pyTcsFile, Tcs buf), EndTcsFile(pyTcsFile) - write the header to TCS file and close the TCS file : Done
+
+need to check its validity : Done
+
+TCX_PyAssFile = CreateAssFile(filename, header) create an ASS file and write header, WriteAssFile(PyAssFile, Ass buf), EndAssFile(PyAssFile) simply close the file : Done
+
+-------------------------------------------------------
+
+Add get texts metrics function : Done
+
+------------------------------------------------------
+
+The features list in the following is not so urgent at present:
+
+Add get PIX from image (png) function : Done
+
+Add functions for manipulating PIX structure : Done
+
+------------------------------------------------------
+
+Add tcs_main (receive the whole TCX PY PIX structure) function and image resizing method : Done
+
+Add PixTexture and PixMask : Done
+
+Should change all PyLong_AS_LONG to PyLong_AsLong and PyFloat_AS_DOUBLE to PyFloat_AsDouble because if the py object to be convert is not a long type PyLong_AS_LONG will return the wrong value so as the PyFloat_AS_DOUBLE : Done
+
+Fix bug in tcxlib_get_pix_from_text : Done
+
+Better support of png file : Done
+
+-------------------------------------------------------
+
+Add Gauss IIR blur : Done
+
+Add tcs_fade : Done
+
+Add PixColorShift PixColorMulti : Done
+
+Add PixCrop : Done
+
+-------------------------------------------------------------
+
+Add PixColorTrans : Done
+
+Add PixColorRGBA PixColorRGB PixColorA : Done
+
+Add BilinearFilter : Done  (p.s. but there are still some problems to be dealt with (e.g., if there is only one pixel, then it will be only as bright as 1/4 of it's original, if the fps of the video and the fps of the FX doesn't match...--> this issue seems impossible to resolve)  : (   )
+
+Add another version of CombinePixs that will simply make a single PIX that hold the two source PIXs which means create a container that holds the two PIXs but do not blend them:
+PIX_C = CreatePixContainer(), PixContainerAdd(PIX_C, PIX, offset_x, offset_y, layer), PIX = PixContainerToPix(PIX_C), you can use Pix container to make a big PIX that allows you to handle a whole line in one PIX : Done
+
+Update ConvertBigPix function to support `layer' : Done
+
+Add Bezier Curve (the order is adjusted by the number of parameters)
+
+Add VertTextPix (HoriTextPix is just the same as TextPix)
+
+Keyframe animation...
+
+
+
+
+Add more APIs about PIX processing...
+
+
+
+
+
+
+
+
+
+

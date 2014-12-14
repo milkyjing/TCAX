@@ -1,0 +1,24 @@
+﻿used files:
+
+.\zlib
+
+hla_frame_cache.h
+hla_framer.h
+hla_stream_parser.h
+hla_util.h
+hla_z_comp.h
+queue.h
+rb.h
+tcas.h
+vector.h
+
+hla_frame_cache.c
+hla_framer.c
+hla_stream_parser.c
+hla_util.c
+hla_z_comp.c
+queue.c
+rb.c
+tcas.c
+test.c
+vector.c

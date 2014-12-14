@@ -1,0 +1,4 @@
+﻿Refine legacy code of libtcs to libtcas code.
+
+it is possible to use zlib to compress linear timing TCAS streams. should deal with this issue after 
+the implementation of linear timing TCAS specification.

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fontColor_dll", "fontColor_dll.vcxproj", "{5A34CC80-A7E4-40A7-B6A7-0CF8F68B5FC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A34CC80-A7E4-40A7-B6A7-0CF8F68B5FC3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5A34CC80-A7E4-40A7-B6A7-0CF8F68B5FC3}.Debug|Win32.Build.0 = Debug|Win32
+		{5A34CC80-A7E4-40A7-B6A7-0CF8F68B5FC3}.Release|Win32.ActiveCfg = Release|Win32
+		{5A34CC80-A7E4-40A7-B6A7-0CF8F68B5FC3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

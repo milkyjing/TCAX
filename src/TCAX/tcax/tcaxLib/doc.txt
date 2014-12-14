@@ -1,0 +1,178 @@
+﻿related projects:
+    FreeType
+    libtcs
+    Python
+    libpng (& zlib)
+
+define a structure TCX_PIX in python it is just called PIX for short
+
+
+all APIs use TCX PIX structure 
+and returns PY PIX structure 
+
+
+supports making PIX from texts and images.
+
+now making PIX from texts is under developing
+
+supports single text and multi texts (kerning is applied)
+
+two types of APIs fast (should use tcx_py_init_font() and tcx_py_fin_font() additionally) and normal (initialization of fonts and getting PIX is done at the same time) low efficiency
+
+
+
+
+
+
+
+static int _tcxlib_get_texts_pix(const TCX_pFont pFont, const wchar_t *text, TCX_pPix pPix) {
+    int i, count, height, bearingYHori;
+    int *pWidth;
+    int *pHeight;
+    int *pAdvanceHori;
+    int *pBearingXHori;
+    int *pBearingYHori;
+    int *pKerning;
+    FT_UInt index;
+    TCX_pPix pPixTemp;
+    count = wcslen(text);
+    pWidth = (int *)malloc(count * sizeof(int));
+    pHeight = (int *)malloc(count * sizeof(int));
+    pAdvanceHori = (int *)malloc(count * sizeof(int));
+    pBearingXHori = (int *)malloc(count * sizeof(int));
+    pBearingYHori = (int *)malloc(count * sizeof(int));
+    pKerning = (int *)malloc(count * sizeof(int));
+    pPixTemp = (TCX_pPix)malloc(count * sizeof(TCX_Pix));
+    for (i = 0; i < count; i ++) {
+        index = FT_Get_Char_Index(pFont->face, text[i]);
+        FT_Load_Glyph(pFont->face, index, FT_LOAD_DEFAULT);
+        pWidth[i] = pFont->face->glyph->metrics.width >> 6;
+        pHeight[i] = pFont->face->glyph->metrics.height >> 6;
+        pAdvanceHori[i] = pFont->face->glyph->metrics.horiAdvance >> 6;
+        pBearingXHori[i] = pFont->face->glyph->metrics.horiBearingX >> 6;
+        pBearingYHori[i] = pFont->face->glyph->metrics.horiBearingY >> 6;
+        if (L' ' == text[i] || L'　' == text[i]) {
+            pWidth[i] = (int)(pWidth[i] * pFont->spaceScale);
+            pAdvanceHori[i] = (int)(pAdvanceHori[i] * pFont->spaceScale);
+            pBearingXHori[i] = (int)(pBearingXHori[i] * pFont->spaceScale);
+        }
+        _tcxlib_get_text_pix(pFont, text[i], &pPixTemp[i]);
+    }
+    if (FT_HAS_KERNING(pFont->face)) {
+        FT_UInt left;
+        FT_UInt right;
+        FT_Vector kerning;
+        pKerning[0] = 0;
+        for (i = 1; i < count; i ++) {
+            left  = FT_Get_Char_Index(pFont->face, text[i - 1]);
+            right = FT_Get_Char_Index(pFont->face, text[i]);
+            FT_Get_Kerning(pFont->face, left, right, FT_KERNING_DEFAULT, &kerning);
+            pKerning[i] = kerning.x >> 6;
+        }
+    } else memset(pKerning, 0, count * sizeof(int));
+    pPix->initX = pPixTemp[0].initX;
+    pPix->initY = pPixTemp[0].initY;
+    pPix->width = 0;
+    height = pHeight[0] - pBearingYHori[0];
+    bearingYHori = pBearingYHori[0];
+    for (i = 0; i < count; i ++) {
+        pPix->initY = __min(pPix->initY, pPixTemp[i].initY);
+        pPix->width += pAdvanceHori[i] + pKerning[i] + pFont->spacing;
+        height = __max(height, pHeight[i] - pBearingYHori[i]);
+        bearingYHori = __max(bearingYHori, pBearingYHori[i]);
+    }
+    pPix->width += 2 * pFont->bord - pFont->spacing - pBearingXHori[0] - (pAdvanceHori[count - 1] - pWidth[count - 1] - pBearingXHori[count - 1]);
+    pPix->height = 2 * pFont->bord + height + bearingYHori;
+    pPix->size = pPix->height * (pPix->width << 2);
+    pPix->buf = (unsigned char *)malloc(pPix->size * sizeof(unsigned char));
+    for (i = 0; i < count; i ++) {
+        ;
+    }
+    return 0;
+}
+
+
+static void _tcxlib_sz_ansi_to_unicode(const char *ansi, wchar_t **uni) {
+    int count;
+    wchar_t *sz;
+    count = MultiByteToWideChar(CP_ACP, 0, ansi, -1, NULL, 0);
+    sz = (wchar_t *)malloc(count * sizeof(wchar_t));
+    MultiByteToWideChar(CP_ACP, 0, ansi, -1, sz, count);
+    *uni = sz;
+}
+
+
+PyObject *tcxlib_vertical_layout_ass(PyObject *self, PyObject *args) {
+    int i, count, offset;
+    int alignment;
+    const wchar_t *text;
+    wchar_t *textWithAssTags;
+    PyObject *pyText;
+    PyObject *pyTextWithAssTags;
+    alignment = (int)PyLong_AS_LONG(PyTuple_GET_ITEM(args, 0));
+    pyText = PyTuple_GET_ITEM(args, 1);
+    text = (const wchar_t *)PyUnicode_AS_UNICODE(pyText);
+    if (0x3000 <= text[0]) {    /* then, we suppose the text string contains CJK texts which needn't be rotated */
+        Py_INCREF(pyText);
+        return pyText;
+    }
+    count = wcslen(text);
+    textWithAssTags = (wchar_t *)malloc((count * 10 + 1) * sizeof(wchar_t));    /* wcslen(L"{\\frz-90}T") = 10, and we suppose that every text need to add a {\\frz-90} tag */
+    offset = 0;
+    if (3 == alignment || 6 == alignment || 9 == alignment) {
+        for (i = 0; i < count; i ++) {
+            memcpy(textWithAssTags + offset, L"{\\frz270}", 9 * sizeof(wchar_t));
+            offset += 9;
+            textWithAssTags[offset] = text[i];
+            offset ++;
+        }
+    } else {
+        for (i = 0; i < count; i ++) {
+            memcpy(textWithAssTags + offset, L"{\\frz-90}", 9 * sizeof(wchar_t));
+            offset += 9;
+            textWithAssTags[offset] = text[i];
+            offset ++;
+        }
+    }
+    textWithAssTags[offset] = L'\0';
+    pyTextWithAssTags = PyUnicode_FromUnicode(textWithAssTags, offset);    /* wcslen(textWithAssTags) == offset */
+    free(textWithAssTags);
+    return pyTextWithAssTags;
+}
+
+
+
+
+
+static int _tcxlib_bilinear_filter(const TCX_pPix pPixSrc, double offset_x, double offset_y, TCX_pPix pPixDst) {
+    int ix, iy;
+    ix = (int)x;
+    iy = (int)y;
+    if (x == ix && y == iy) {
+        pPixDst->initX = pPixSrc->initX;
+        pPixDst->initY = pPixSrc->initY;
+        pPixDst->width = pPixSrc->width;
+        pPixDst->height = pPixSrc->height;
+        pPixDst->size = pPixSrc->size;
+        pPixDst->buf = (unsigned char *)malloc(pPixDst->size * sizeof(unsigned char));
+        memcpy(pPixDst->buf, pPixSrc->buf, pPixSrc->size * sizeof(unsigned char));
+        return 0;
+    }
+    return 0;
+}
+
+
+
+Should add specification about text layout, note the only difference of handling a text PIX and a image PIX is that:
+
+the first pixel in text PIX: InitPosX = _X - int(_A / 2 + 0.5) + PIX[0][0] and InitPosY = _Y - int(_FontSize / 2 + 0.5) + PIX[0][1]
+
+while in image PIX: InitPosX = _X - PIX[1][0] / 2 + PIX[0][0] and InitPosY = _Y - PIX[1][1] / 2 + PIX[0][1]
+
+if you use PixResize to change the size of a text PIX then when calculating InitPos you should scale _A and _FontSize as well.
+
+
+
+
+
+

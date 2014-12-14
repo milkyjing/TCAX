@@ -1,0 +1,5 @@
+PIX is tuple, hence it is read only, how do we modify its values when needed?
+here is a trick, we know that PIX is actually ((initX, initY), (width, height), (r1, g1, b1, a1, r2, g2, b2, a2, ...))
+so, if we want to modify the initY, we write y = y(PIX[0][1]), then convert back by PIX = ((PIX[0][0], y), PIX[1], PIX[2]), 
+if we need modify all of the data, we can simply use PIX_d = [list(PIX[0]), list(PIX[1]), list(PIX[2])], and convert back by 
+PIX = (tuple(PIX_D[0]), tuple(PIX_d[1]), tuple(PIX_D[2]))

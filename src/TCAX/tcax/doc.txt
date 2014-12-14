@@ -1,0 +1,224 @@
+﻿
+int tcx_entry(const wchar_t *tccFilename, const wchar_t *outFilename) {
+    int i;
+    unsigned char BOM[3];
+    wchar_t *assFilename;
+    char *tcsFilename;
+    FILE *assfp;
+    TCS_File tcsFile;
+    TCS_Header tcsHeader;
+    TCC_Attributes tccAttributes;
+    PY_InitData InitData;
+    PY_TcxPy TcxPy;
+    /* Show progress */
+    HANDLE hStdout;
+    COORD coord;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleScreenBufferInfo(hStdout, &csbi);
+    coord.X = 0;
+    coord.Y = csbi.dwCursorPosition.Y + 1;
+    /* */
+    memset(&TcxPy, 0, sizeof(PY_TcxPy));
+    if (tcx_init_tcxpy_data(tccFilename, outFilename, &tccAttributes, &InitData) != 0) return -1;
+    if (tcxpy_init_base_py_module(&TcxPy, &InitData) != py_error_success) {
+        libtcc_free_attributes(&tccAttributes);
+        tcx_free_tcxpy_data(&InitData);
+        printf("Fatal Error: failed to initialize the base tcxPy module.\n");
+        return -1;
+    }
+    if (!tccAttributes.tcxpy_user) {
+        assfp = _wfopen(tcx_get_out_ass_filename(outFilename, &assFilename), L"wb");
+        if (!assfp) {
+            libtcc_free_attributes(&tccAttributes);
+            tcx_free_tcxpy_data(&InitData);
+            tcxpy_fin_tcxpy(&TcxPy);
+            free(assFilename);
+            printf("Fatal Error: failed to create the output ASS file.\n");
+            return -1;
+        }
+        free(assFilename);
+        if (libtcs_open_file(&tcsFile, tcx_get_out_tcs_filename(outFilename, &tcsFilename), tcs_file_create_new) != tcs_error_success) {
+            libtcc_free_attributes(&tccAttributes);
+            tcx_free_tcxpy_data(&InitData);
+            tcxpy_fin_tcxpy(&TcxPy);
+            free(tcsFilename);
+            fclose(assfp);
+            printf("Fatal Error: failed to create the output TCS file.\n");
+            return -1;
+        }
+        free(tcsFilename);
+        BOM[0] = 0xEF;
+        BOM[1] = 0xBB;
+        BOM[2] = 0xBF;
+        fwrite(BOM, sizeof(unsigned char), 3, assfp);
+        tcx_write_ass_string_to_file(assfp, InitData.assHeader, wcslen(InitData.assHeader));
+        _tcx_get_numerator_and_denominator(tccAttributes.fx_fps, &tcsHeader.fpsNumerator, &tcsHeader.fpsDenominator);
+        libtcs_set_header(&tcsHeader, TCS_FLAG_COMPRESSED, tccAttributes.fx_width, tccAttributes.fx_height, TCS_INIT_MIN_TIME, TCS_INIT_MAX_TIME, 0, tcsHeader.fpsNumerator, tcsHeader.fpsDenominator);
+        libtcs_set_file_position_indicator(&tcsFile, tcs_fpi_header);
+    }
+    for (i = 0; i < tccAttributes.py_file_count; i ++) {
+        if (tccAttributes.beg_line[i] <= 0)
+            tccAttributes.beg_line[i] += InitData.sylData.lines;
+        tccAttributes.beg_line[i] -= 1;    /* in TCC file beg_line starts from 1, in tcx it starts from 0 */
+        if (tccAttributes.end_line[i] <= 0)
+            tccAttributes.end_line[i] += InitData.sylData.lines;
+        if (tccAttributes.beg_line[i] >= tccAttributes.end_line[i])
+            printf("Warning: the %i(th) `beg line' is greater than `end line'\n", i + 1);
+    }
+    for (i = 0; i < tccAttributes.py_file_count; i ++) {
+        int index;
+        int iLine, iText, nTexts, start, end, timeDiff, time, ix, iy, x, y, advance;
+        const wchar_t *text;
+        void **pReturnedBuf;
+        if (tcxpy_init_user_py_module(&TcxPy, InitData.directory, tccAttributes.py_file[i], tccAttributes.tcxpy_init, tccAttributes.tcxpy_user, tccAttributes.tcxpy_fin) != py_error_success) {
+            libtcc_free_attributes(&tccAttributes);
+            tcx_free_tcxpy_data(&InitData);
+            tcxpy_fin_tcxpy(&TcxPy);
+            fclose(assfp);
+            libtcs_close_file(&tcsFile);
+            printf("Fatal Error: failed to initialize the %i(th) user tcx py script.\n", i + 1);
+            return -1;
+        }
+        if (tccAttributes.tcxpy_init) {
+            if (tcxpy_script_func_init(&TcxPy) != py_error_success) {
+                libtcc_free_attributes(&tccAttributes);
+                tcx_free_tcxpy_data(&InitData);
+                tcxpy_fin_tcxpy(&TcxPy);
+                fclose(assfp);
+                libtcs_close_file(&tcsFile);
+                printf("Fatal Error: failed to execute the tcxPy_Init() function in the %i(th) user tcx py script.\n", i + 1);
+                return -1;
+            }
+        }
+        if (tccAttributes.tcxpy_user) {
+            if (tcxpy_script_func_user(&TcxPy) != py_error_success) {
+                libtcc_free_attributes(&tccAttributes);
+                tcx_free_tcxpy_data(&InitData);
+                tcxpy_fin_tcxpy(&TcxPy);
+                fclose(assfp);
+                libtcs_close_file(&tcsFile);
+                printf("Fatal Error: failed to execute the tcxPy_User() function in the %i(th) user tcx py script.\n", i + 1);
+                return -1;
+            }
+        } else {
+            index = 0;
+            for (iLine = 0; iLine < InitData.sylData.lines; iLine ++) {
+                ix = tcx_get_line_init_pos_x(&tccAttributes, (TM_pInfoToTcx)&InitData.tmData, iLine);
+                iy = tcx_get_line_init_pos_y(&tccAttributes, (TM_pInfoToTcx)&InitData.tmData, iLine);
+                nTexts = InitData.sylData.count1D[iLine];
+                for (iText = 0; iText < nTexts; iText ++) {
+                    text = InitData.sylData.text2D[index];
+                    if (iLine >= tccAttributes.beg_line[i] && iLine < tccAttributes.end_line[i] && !libsyl_is_white_spaces(text, wcslen(text))) {
+                        start = InitData.sylData.begTime1D[iLine];
+                        end = InitData.sylData.endTime1D[iLine];
+                        timeDiff = InitData.sylData.timeDiff2D[index];
+                        time = InitData.sylData.time2D[index];
+                        advance = InitData.tmData.advance2D[index];
+                        x = ix + InitData.tmData.advanceDiff2D[index] + (int)(advance / 2.0 + 0.5);
+                        y = iy + (int)(tccAttributes.font_size / 2.0 + 0.5);
+                        pReturnedBuf = tcxpy_script_func_main(&TcxPy, iLine, iText, nTexts, start, end, timeDiff, time, x, y, advance, text);
+                        if (!pReturnedBuf) {
+                            libtcc_free_attributes(&tccAttributes);
+                            tcx_free_tcxpy_data(&InitData);
+                            tcxpy_fin_tcxpy(&TcxPy);
+                            fclose(assfp);
+                            libtcs_write_header(&tcsFile, &tcsHeader, 0);
+                            libtcs_close_file(&tcsFile);
+                            printf("Fatal Error: failed to execute the tcxPy_Main() function in the %i(th) user tcx py script.\n", i + 1);
+                            return -1;
+                        }
+                        if ((int)pReturnedBuf[0] > 0) {
+                            tcx_write_ass_string_to_file(assfp, (const wchar_t *)pReturnedBuf[1], (int)pReturnedBuf[0]);
+                            free(pReturnedBuf[1]);
+                        }
+                        if ((int)pReturnedBuf[2] > 0) {
+                            tcx_write_tcs_buffer_to_file(&tcsFile, &tcsHeader, (const unsigned long *)pReturnedBuf[3], (int)pReturnedBuf[2]);
+                            free(pReturnedBuf[3]);
+                        }
+                        free(pReturnedBuf);
+                    }
+                    SetConsoleCursorPosition(hStdout, coord);
+                    printf("Progress: %.2f%c\n", 100 * (i + index / (double)InitData.sylData.count) / tccAttributes.py_file_count, '%');
+                    index ++;
+                }
+            }
+        }
+        if (tccAttributes.tcxpy_fin) {
+            if (tcxpy_script_func_fin(&TcxPy) != py_error_success) {
+                libtcc_free_attributes(&tccAttributes);
+                tcx_free_tcxpy_data(&InitData);
+                tcxpy_fin_tcxpy(&TcxPy);
+                fclose(assfp);
+                libtcs_close_file(&tcsFile);
+                printf("Fatal Error: failed to execute the tcxPy_Fin() function in the %i(th) user tcx py script.\n", i + 1);
+                return -1;
+            }
+        }
+    }
+    if (!tccAttributes.tcxpy_user) {
+        libtcc_free_attributes(&tccAttributes);
+        tcx_free_tcxpy_data(&InitData);
+        tcxpy_fin_tcxpy(&TcxPy);
+        fclose(assfp);
+        libtcs_write_header(&tcsFile, &tcsHeader, 0);
+        libtcs_close_file(&tcsFile);
+        SetConsoleCursorPosition(hStdout, coord);
+        printf("Progress: 100.00%c\n", '%');
+    }
+    return 0;
+}
+
+
+
+
+
+Ideographic characters assigned by Unicode appear in the following blocks:
+CJK Unified Ideographs (4E00–9FFF) (chart)
+CJK Unified Ideographs Extension A (3400–4DBF) (chart)
+CJK Unified Ideographs Extension B (20000–2A6DF)
+CJK Unified Ideographs Extension C (2A700–2B73F)
+CJK Compatibility Ideographs (F900–FAFF) (the twelve characters at FA0E, FA0F, FA11, FA13, FA14, FA1F, FA21, FA23, FA24, FA27, FA28 and FA29 are actually "unified ideographs" not "compatibility ideographs")
+Unicode includes support of CJKV radicals, strokes, punctuation, marks and symbols in the following blocks:
+CJK Radicals Supplement (2E80–2EFF)
+CJK Symbols and Punctuation (3000–303F) (chart)
+CJK Strokes (31C0–31EF)
+Ideographic Description Characters (2FF0–2FFF)
+Additional compatibility (discouraged use) characters appear in these blocks:
+Kangxi Radicals (2F00–2FDF)
+Enclosed CJK Letters and Months (3200–32FF) (chart)
+CJK Compatibility (3300–33FF) (chart)
+CJK Compatibility Ideographs (F900–FAFF) (chart)
+CJK Compatibility Ideographs (2F800–2FA1F)
+CJK Compatibility Forms (FE30–FE4F) (chart)
+
+
+
+
+
+static int _tcx_is_ideographic_character(wchar_t character) {
+    /* Ideographic characters assigned by Unicode appear in the following blocks */
+    if (character >= 0x4E00 && character <= 0x9FFF) return 1;                 /* CJK Unified Ideographs (4E00–9FFF) */
+    else if (character >= 0x3400 && character <= 0x4DBF) return 1;            /* CJK Unified Ideographs Extension A (3400–4DBF) */
+    /* else if (character >= 0x20000 && character <= 0x2A6DF) return 1; */    /* CJK Unified Ideographs Extension B (20000–2A6DF) */
+    /* else if (character >= 0x2A700 && character <= 0x2B73F) return 1; */    /* CJK Unified Ideographs Extension C (2A700–2B73F) */
+    else if (character >= 0xF900 && character <= 0xFAFF) return 1;            /* CJK Compatibility Ideographs (F900–FAFF) */
+    /* Unicode includes support of CJKV radicals, strokes, punctuation, marks and symbols in the following blocks */
+    else if (character >= 0x2E80 && character <= 0x2EFF) return 1;            /* CJK Radicals Supplement (2E80–2EFF) */
+    else if (character >= 0x3000 && character <= 0x303F) return 1;            /* CJK Symbols and Punctuation (3000–303F) */
+    else if (character >= 0x31C0 && character <= 0x31EF) return 1;            /* CJK Strokes (31C0–31EF) */
+    else if (character >= 0x2FF0 && character <= 0x2FFF) return 1;            /* Ideographic Description Characters (2FF0–2FFF) */
+    /* Additional compatibility (discouraged use) characters appear in these blocks */
+    else if (character >= 0x2F00 && character <= 0x2FDF) return 1;            /* Kangxi Radicals (2F00–2FDF) */
+    else if (character >= 0x3200 && character <= 0x32FF) return 1;            /* Enclosed CJK Letters and Months (3200–32FF) */
+    else if (character >= 0x3300 && character <= 0x33FF) return 1;            /* CJK Compatibility (3300–33FF) */
+    else if (character >= 0xF900 && character <= 0xFAFF) return 1;            /* CJK Compatibility Ideographs (F900–FAFF) */
+    /* else if (character >= 0x2F800 && character <= 0x2FA1F) return 1; */    /* CJK Compatibility Ideographs (2F800–2FA1F) */
+    else if (character >= 0xFE30 && character <= 0xFE4F) return 1;            /* CJK Compatibility Forms (FE30–FE4F) */
+    else return 0;
+}
+
+
+
+
+

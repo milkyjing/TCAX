@@ -1,0 +1,322 @@
+
+            pPixDst->buf[index]     = CLIP_0_255((int)((buf1[index]     * u_o + buf2[index]     * u_r) * v_o + (buf3[index]     * u_o + buf4[index]     * u_r) * v_r));
+            pPixDst->buf[index + 1] = CLIP_0_255((int)((buf1[index + 1] * u_o + buf2[index + 1] * u_r) * v_o + (buf3[index + 1] * u_o + buf4[index + 1] * u_r) * v_r));
+            pPixDst->buf[index + 2] = CLIP_0_255((int)((buf1[index + 2] * u_o + buf2[index + 2] * u_r) * v_o + (buf3[index + 2] * u_o + buf4[index + 2] * u_r) * v_r));
+            pPixDst->buf[index + 3] = CLIP_0_255((int)((buf1[index + 3] * u_o + buf2[index + 3] * u_r) * v_o + (buf3[index + 3] * u_o + buf4[index + 3] * u_r) * v_r));
+
+
+## Append a PIX to the TCAS_BUF list, and apply the `fade-in fade-out' effect.
+# @param TCAS_BUF a list, the list containing the raw TCAS FX data chunks
+# @param pix a PIX, the target PIX that is going to be added into the TCAS_BUF
+# @param start an integer, the starting time of the PIX
+# @param end an integer, the end time of the PIX
+# @param t1 an integer, the fade-in time
+# @param t2 an integer, the fade-out time
+# @param fps a float, fps of the TCX FX
+# @param offsetX a float, offset of the PIX in the horizontal direction
+# @param offsetY a float, offset of the PIX in the vertical direction
+# @param layer an integer, layer of the PIX
+# @return 0 on success
+def tcas_fade(TCAS_BUF, pix, start, end, t1, t2, fps, offsetX, offsetY, layer):
+
+
+/**
+ * Append PIX to TCAS list (TCAS_BUF), and add the `fade-in, fade-out' effect.
+ * @param self reserved
+ * @param args (TCAS_BUF, pix, start, end, t1, t2, fps, offsetX, offsetY, layer)
+ * @return TCAX_Py_Error_Code
+ */
+extern TCAX_Py_Error_Code tcaxlib_tcas_list_append_pix_with_fade(PyObject *self, PyObject *args);
+
+
+TCAX_Py_Error_Code tcaxlib_tcas_list_append_pix_with_fade(PyObject *self, PyObject *args) {
+    PyObject *pyArg1, *pyArg2, *pyArg3, *pyArg4, *pyArg5, *pyArg6, *pyArg7, *pyArg8, *pyArg9, *pyArg10;
+    int start, end, t1, t2;
+    double fps, diffX, diffY;
+    int layer;
+    PyObject *tcasList;
+    TCAX_Pix pix;
+    int i, w, h, index, frame1, frame2;
+    unsigned long color;
+    int alpha;
+    int posX, posY, initPosX, initPosY;
+    PyObject *pixDip;   /* store a dynamic isolated pixel of PIX temporary */
+    if (PyTuple_GET_SIZE(args) < 10) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, too less parameters - `(TCAS_BUF, PIX, Start, End, t1, t2, fps, DiffX, DiffY, Layer)'\n");
+        return NULL;
+    }
+    pyArg1 = PyTuple_GET_ITEM(args, 0);
+    if (!PyList_Check(pyArg1)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 1st param should be a list - `TCAS_BUF'\n");
+        return NULL;
+    }
+    pyArg2 = PyTuple_GET_ITEM(args, 1);
+    if (!PyTuple_Check(pyArg2)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 2nd param should be a tuple - `PIX'\n");
+        return NULL;
+    }
+    pyArg3 = PyTuple_GET_ITEM(args, 2);
+    if (!PyLong_Check(pyArg3) && !PyFloat_Check(pyArg3)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 3rd param should be an integer - `start'\n");
+        return NULL;
+    }
+    pyArg4 = PyTuple_GET_ITEM(args, 3);
+    if (!PyLong_Check(pyArg4) && !PyFloat_Check(pyArg4)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 4th param should be an integer - `end'\n");
+        return NULL;
+    }
+    pyArg5 = PyTuple_GET_ITEM(args, 4);
+    if (!PyLong_Check(pyArg5) && !PyFloat_Check(pyArg5)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 5th param should be an integer - `t1'\n");
+        return NULL;
+    }
+    pyArg6 = PyTuple_GET_ITEM(args, 5);
+    if (!PyLong_Check(pyArg6) && !PyFloat_Check(pyArg6)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 6th param should be an integer - `t2'\n");
+        return NULL;
+    }
+    pyArg7 = PyTuple_GET_ITEM(args, 6);
+    if (!PyLong_Check(pyArg7) && !PyFloat_Check(pyArg7)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 7th param should be a float - `fps'\n");
+        return NULL;
+    }
+    pyArg8 = PyTuple_GET_ITEM(args, 7);
+    if (!PyLong_Check(pyArg8) && !PyFloat_Check(pyArg8)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 8th param should be a float - `initX'\n");
+        return NULL;
+    }
+    pyArg9 = PyTuple_GET_ITEM(args, 8);
+    if (!PyLong_Check(pyArg9) && !PyFloat_Check(pyArg9)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 9th param should be a float - `initY'\n");
+        return NULL;
+    }
+    pyArg10 = PyTuple_GET_ITEM(args, 9);
+    if (!PyLong_Check(pyArg10) && !PyFloat_Check(pyArg10)) {
+        PyErr_SetString(PyExc_RuntimeError, "tcas_fade error, the 10th param should be an integer - `layer'\n");
+        return NULL;
+    }
+    tcasList = pyArg1;    /* note: we needn't use Py_CLEAR(tcasList) or Py_INCREF(tcasList) */
+    tcaxlib_convert_py_pix((const TCAX_PyPix)pyArg2, &pix);
+    start = (int)PyLong_AsLong(pyArg3);
+    end = (int)PyLong_AsLong(pyArg4);
+    t1 = (int)PyLong_AsLong(pyArg5);
+    t2 = (int)PyLong_AsLong(pyArg6);
+    fps = (double)PyFloat_AsDouble(pyArg7);
+    diffX = (double)PyFloat_AsDouble(pyArg8);
+    diffY = (double)PyFloat_AsDouble(pyArg9);
+    layer = (0x0000000F && (unsigned long)PyLong_AsLong(pyArg10));
+    frame1 = (int)(t1 * fps / 1000 + 0.5);
+    frame2 = (int)(t2 * fps / 1000 + 0.5);
+    initPosX = (int)floor(diffX + pix.initX);    /* Note: no we don't use (int)(fDiffX + fInitX + 0.5) */
+    initPosY = (int)floor(diffY + pix.initY);
+    for (i = 0; i < frame1; i++) {
+        for (h = 0; h < pix.height; h++) {
+            posY = initPosY + h;
+            for (w = 0; w < pix.width; w++) {
+                posX = initPosX + w;
+                index = (h * pix.width + w) << 2;
+                color = MAKERGB(pix.buf[index], pix.buf[index + 1], pix.buf[index + 2]);
+                alpha = pix.buf[index + 3];
+                if (0 != alpha) {
+                    pixDip = PyTuple_New(7);
+                    PyTuple_SET_ITEM(pixDip, 0, PyLong_FromLong(start + (int)(i * 1000 / fps)));
+                    PyTuple_SET_ITEM(pixDip, 1, PyLong_FromLong(start + (int)((i + 1) * 1000 / fps)));
+                    PyTuple_SET_ITEM(pixDip, 2, PyLong_FromLong(layer));
+                    PyTuple_SET_ITEM(pixDip, 3, PyLong_FromLong(posX));
+                    PyTuple_SET_ITEM(pixDip, 4, PyLong_FromLong(posY));
+                    PyTuple_SET_ITEM(pixDip, 5, PyLong_FromLong(color));
+                    PyTuple_SET_ITEM(pixDip, 6, PyLong_FromLong(alpha * (i + 1) / frame1));
+                    PyList_Append(tcasList, pixDip);
+                    Py_CLEAR(pixDip);
+                }
+            }
+        }
+    }
+    for (h = 0; h < pix.height; h++) {
+        posY = initPosY + h;
+        for (w = 0; w < pix.width; w++) {
+            posX = initPosX + w;
+            index = (h * pix.width + w) << 2;
+            color = MAKERGB(pix.buf[index], pix.buf[index + 1], pix.buf[index + 2]);
+            alpha = pix.buf[index + 3];
+            if (0 != alpha) {
+                pixDip = PyTuple_New(7);
+                PyTuple_SET_ITEM(pixDip, 0, PyLong_FromLong(start + (int)(frame1 * 1000 / fps)));
+                PyTuple_SET_ITEM(pixDip, 1, PyLong_FromLong(end - (int)(frame2 * 1000 / fps)));
+                PyTuple_SET_ITEM(pixDip, 2, PyLong_FromLong(layer));
+                PyTuple_SET_ITEM(pixDip, 3, PyLong_FromLong(posX));
+                PyTuple_SET_ITEM(pixDip, 4, PyLong_FromLong(posY));
+                PyTuple_SET_ITEM(pixDip, 5, PyLong_FromLong(color));
+                PyTuple_SET_ITEM(pixDip, 6, PyLong_FromLong(alpha));
+                PyList_Append(tcasList, pixDip);
+                Py_CLEAR(pixDip);
+            }
+        }
+    }
+    for (i = frame2; i > 0; i--) {
+        for (h = 0; h < pix.height; h++) {
+            posY = initPosY + h;
+            for (w = 0; w < pix.width; w++) {
+                posX = initPosX + w;
+                index = (h * pix.width + w) << 2;
+                color = MAKERGB(pix.buf[index], pix.buf[index + 1], pix.buf[index + 2]);
+                alpha = pix.buf[index + 3];
+                if (0 != alpha) {
+                    pixDip = PyTuple_New(7);
+                    PyTuple_SET_ITEM(pixDip, 0, PyLong_FromLong(end - (int)(i * 1000 / fps)));
+                    PyTuple_SET_ITEM(pixDip, 1, PyLong_FromLong(end - (int)((i - 1) * 1000 / fps)));
+                    PyTuple_SET_ITEM(pixDip, 2, PyLong_FromLong(layer));
+                    PyTuple_SET_ITEM(pixDip, 3, PyLong_FromLong(posX));
+                    PyTuple_SET_ITEM(pixDip, 4, PyLong_FromLong(posY));
+                    PyTuple_SET_ITEM(pixDip, 5, PyLong_FromLong(color));
+                    PyTuple_SET_ITEM(pixDip, 6, PyLong_FromLong(alpha * i / frame2));
+                    PyList_Append(tcasList, pixDip);
+                    Py_CLEAR(pixDip);
+                }
+            }
+        }
+    }
+    free(pix.buf);
+    return Py_BuildValue("i", 0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * PIX blender, 0 - video, 1 - back, 2 - overlay
+ * R_t = R1 * A1 / 255 + R0 * (255 - A1) / 255
+ * R = R2 * A2 / 255 + R_t * (255 - A2) / 255
+ * R = Rx * Ax / 255 + R0 * (255 - Ax) / 255
+ * result:
+ * Ax = 255 - (255 - A1) * (255 - A2) / 255
+ * Rx = (R2 * A2 + R1 * A1 * (255 - A2) / 255) / Ax
+ */
+TCAX_PyPix tcaxlib_combine_two_pixs(PyObject *self, PyObject *args) {
+    PyObject *pyArg1, *pyArg2;
+    int i, h, w, dstIndex, srcIndex, offset_x1, offset_y1, offset_x2, offset_y2;
+    unsigned char *overlayBuf;
+    unsigned char R1, R2, R;
+    unsigned char G1, G2, G;
+    unsigned char B1, B2, B;
+    unsigned char A1, A2, A;
+    TCAX_Pix backPix;
+    TCAX_Pix overlayPix;
+    TCAX_Pix blendedPix;
+    if (PyTuple_GET_SIZE(args) < 2) {
+        PyErr_SetString(PyExc_RuntimeError, "CombinePixs error, too less parameters - `(back, overlay)'\n");
+        return NULL;
+    }
+    pyArg1 = PyTuple_GET_ITEM(args, 0);
+    if (!PyTuple_Check(pyArg1)) {
+        PyErr_SetString(PyExc_RuntimeError, "CombinePixs error, the 1st param should be a tuple - `back'\n");
+        return NULL;
+    }
+    pyArg2 = PyTuple_GET_ITEM(args, 1);
+    if (!PyTuple_Check(pyArg2)) {
+        PyErr_SetString(PyExc_RuntimeError, "CombinePixs error, the 2nd param should be a tuple - `overlay'\n");
+        return NULL;
+    }
+    tcaxlib_convert_py_pix((const TCAX_PyPix)pyArg1, &backPix);
+    tcaxlib_convert_py_pix((const TCAX_PyPix)pyArg2, &overlayPix);
+    blendedPix.width = __max(backPix.width, overlayPix.width);
+    blendedPix.height = __max(backPix.height, overlayPix.height);
+    blendedPix.size = blendedPix.height * (blendedPix.width << 2);
+    blendedPix.buf = (unsigned char *)malloc(blendedPix.size * sizeof(unsigned char));
+    memset(blendedPix.buf, 0, blendedPix.size * sizeof(unsigned char));
+    offset_x1 = (int)((blendedPix.width - backPix.width) / 2.0 + 0.5);
+    offset_y1 = (int)((blendedPix.height - backPix.height) / 2.0 + 0.5);
+    for (h = 0; h < backPix.height; h++) {
+        for (w = 0; w < backPix.width; w++) {
+            dstIndex = ((h + offset_y1) * blendedPix.width + w + offset_x1) << 2;
+            srcIndex = (h * backPix.width + w) << 2;
+            memcpy(blendedPix.buf + dstIndex, backPix.buf + srcIndex, 4 * sizeof(unsigned char));
+        }
+    }
+    offset_x2 = (int)((blendedPix.width - overlayPix.width) / 2.0 + 0.5);
+    offset_y2 = (int)((blendedPix.height - overlayPix.height) / 2.0 + 0.5);
+    overlayBuf = (unsigned char *)malloc(blendedPix.size * sizeof(unsigned char));
+    memset(overlayBuf, 0, blendedPix.size * sizeof(unsigned char));
+    for (h = 0; h < overlayPix.height; h++) {
+        for (w = 0; w < overlayPix.width; w++) {
+            dstIndex = ((h + offset_y2) * blendedPix.width + w + offset_x2) << 2;
+            srcIndex = (h * overlayPix.width + w) << 2;
+            memcpy(overlayBuf + dstIndex, overlayPix.buf + srcIndex, 4 * sizeof(unsigned char));
+        }
+    }
+    blendedPix.initX = __min(backPix.initX + offset_x1, overlayPix.initX + offset_x2);
+    blendedPix.initY = __min(backPix.initY + offset_y1, overlayPix.initY + offset_y2);
+    for (i = 0; i < blendedPix.size; i += 4) {
+        R1 = blendedPix.buf[i];
+        G1 = blendedPix.buf[i + 1];
+        B1 = blendedPix.buf[i + 2];
+        A1 = blendedPix.buf[i + 3];
+        R2 = overlayBuf[i];
+        G2 = overlayBuf[i + 1];
+        B2 = overlayBuf[i + 2];
+        A2 = overlayBuf[i + 3];
+        A = 255 - (255 - A1) * (255 - A2) / 255;
+        if (0 != A) {
+            R = (R2 * A2 + R1 * A1 * (255 - A2) / 255) / A;
+            G = (G2 * A2 + G1 * A1 * (255 - A2) / 255) / A;
+            B = (B2 * A2 + B1 * A1 * (255 - A2) / 255) / A;
+            blendedPix.buf[i]     = R;
+            blendedPix.buf[i + 1] = G;
+            blendedPix.buf[i + 2] = B;
+            blendedPix.buf[i + 3] = A;
+        }
+    }
+    free(backPix.buf);
+    free(overlayPix.buf);
+    free(overlayBuf);
+    return tcaxlib_convert_pix(&blendedPix, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

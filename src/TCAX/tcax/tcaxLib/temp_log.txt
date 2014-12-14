@@ -1,0 +1,12 @@
+﻿Added ImagePix function (only supports png file whose bit_depth is 8 and color_type is GRAY RGB or RGBA
+
+Fixed a bug in function tcxlib_combine_two_pixs()
+
+Updated function _tcxlib_resample_rgba()
+
+fixed bug `>> 6' to `/ 64' (becuase some value may be minus...)
+
+
+Rewrited the function _tcxlib_get_texts_pix, because the previous version had some damn bugs
+
+Fixed a small bug in function tcxlib_bilinear_filter_internal(), tcxlib_tcs_list_append_pix() and tcxlib_tcs_list_append_pix_with_fade()

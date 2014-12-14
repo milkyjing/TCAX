@@ -1,0 +1,8 @@
+﻿Note that, tcas lib does not check for null pointers as parameters.
+IMPORTANT: encapsulation on Containers (Collectors), meaning that you can only use interface to access their data members. 
+But this constraint is not for other data types (structs)
+
+CONSTRAINTS: when writing the TCAS file, please make sure if startTime < endTime, do not write the chunk, 
+if startTime == endTime and is not key frame chunks, do not write the chunk.
+
+compacted index does not surport key framing.

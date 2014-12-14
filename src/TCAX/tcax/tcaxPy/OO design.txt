@@ -1,0 +1,7 @@
+How can we use the object-oriented method to simplify the writing of tcax py script?
+
+class AssFX, responsible for a complete ASS FX
+
+class AssLine, responsible for an ASS line, an ASS FX is consisted of thousands of ASS lines
+
+class AssStyle

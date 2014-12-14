@@ -1,0 +1,59 @@
+surface.c
+
+
+static PyObject *
+image_surface_get_pix (PycairoImageSurface *o) {
+    int i, w, h, width, height;
+    double f;
+    unsigned char *buf;
+    PyObject *pix;
+    PyObject *pix_pos;
+    PyObject *pix_res;
+    PyObject *pix_buf;
+    width = cairo_image_surface_get_width(o->surface);
+    height = cairo_image_surface_get_height(o->surface);
+    if (cairo_image_surface_get_format(o->surface) != CAIRO_FORMAT_ARGB32) {
+        PyErr_SetString(PyExc_NotImplementedError, "Surface.get_pix: Support for non CAIRO_FORMAT_ARGB32 Not Implemented yet.");
+        return NULL;
+    }
+    i = 0;
+    pix_buf = PyTuple_New(width * height * 4);
+    buf = cairo_image_surface_get_data(o->surface);     /* buf is B G R A , pre-multiplied alpha -_- */
+    for (h = 0; h < height; h++) {
+        for (w = 0; w < width; w++) {
+            if (0 == buf[i + 3]) {
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong(0));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong(0));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong(0));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong(0));
+                i++;
+            } else {
+                f = 255.0 / buf[i + 3];
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong((unsigned char)(buf[i + 2] * f)));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong((unsigned char)(buf[i] * f)));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong((unsigned char)(buf[i - 2] * f)));
+                i++;
+                PyTuple_SET_ITEM(pix_buf, i, PyLong_FromLong(buf[i]));
+                i++;
+            }
+        }
+    }
+    pix_pos = PyTuple_New(2);
+    PyTuple_SET_ITEM(pix_pos, 0, PyFloat_FromDouble(0));
+    PyTuple_SET_ITEM(pix_pos, 1, PyFloat_FromDouble(0));
+    pix_res = PyTuple_New(2);
+    PyTuple_SET_ITEM(pix_res, 0, PyLong_FromLong(width));
+    PyTuple_SET_ITEM(pix_res, 1, PyLong_FromLong(height));
+    pix = PyTuple_New(3);
+    PyTuple_SET_ITEM(pix, 0, pix_pos);
+    PyTuple_SET_ITEM(pix, 1, pix_res);
+    PyTuple_SET_ITEM(pix, 2, pix_buf);
+    return pix;
+}
+
+

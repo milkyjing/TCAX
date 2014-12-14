@@ -1,0 +1,248 @@
+﻿pay special attention to python float and integer!
+
+i = 4
+
+PyLong_AS_LONG(i) == 4
+
+PyFloat_AS_DOUBLE(i) == 0
+
+
+
+f = 4.0
+
+PyLong_AS_LONG(f) == 0
+
+PyFloat_AS_DOUBLE(f) == 4.0
+
+Sovled by using PyLong_AsLong and PyFloat_AsDouble
+
+
+
+Find a over boundary bug in _tcxlib_get_texts_pix(), 
+
+this is because, sometimes horiBearingX_right may be negative (-1 or ...)!, so when create a buffer to hold pix of texts using sum of advances is not enough we should add some value to the end of the sum ('Cause width + horiBearingX_left may larger than advance), however we don't concern about a negative horiBearingX_right in the middle of the string, only the last character with negative horiBearingX_right matters!
+
+
+
+int main() {
+    unsigned char **p;
+    p = (unsigned char **)malloc(5 * sizeof(unsigned char *));
+    p[4] = (unsigned char *)malloc(3 * sizeof(unsigned char));  /* OK not over boundary problem */
+    p[4][3] = 5;  /* it's ok, can execute pass this statement, but... it has a problem of over boundary! */
+    free(p[4]);    /* now the bug bites, however, if we quote this statement, this program can be likely executed properly */
+    free(p);
+    return 0;
+}
+
+
+Issues: handling negative values of text metrics... concerning function _tcxlib_get_texts_pix()
+
+
+
+    if (pPixTemp[count - 1].width + (int)pPixTemp[count - 1].initX > pAdvanceHori[count - 1])    /* fixed the bug of negative horiBearingX_right value */
+        pPix->width += pPixTemp[count - 1].width + (int)pPixTemp[count - 1].initX - pAdvanceHori[count - 1];
+
+
+
+
+
+
+
+
+
+
+
+static int _tcxlib_get_texts_pix(const TCX_pFont pFont, const wchar_t *text, TCX_pPix pPix) {
+    int i, j, count, temp, above, below, h, w, offset_x, offset_y, offset_dst, offset_src;
+    int *pAdvanceHori;
+    int *pBearingYHori;
+    int *pKerning;
+    FT_UInt index;
+    TCX_pPix pPixTemp;
+    count = wcslen(text);
+    pAdvanceHori = (int *)malloc(count * sizeof(int));
+    pBearingYHori = (int *)malloc(count * sizeof(int));
+    pKerning = (int *)malloc(count * sizeof(int));
+    pPixTemp = (TCX_pPix)malloc(count * sizeof(TCX_Pix));
+    for (i = 0; i < count; i ++) {
+        index = FT_Get_Char_Index(pFont->face, text[i]);
+        if (0 == index) {
+            free(pAdvanceHori);
+            free(pBearingYHori);
+            free(pKerning);
+            free(pPixTemp);
+            printf("TextPix Error: find an invalid text that does not exists in the font.\n");
+            return -1;
+        }
+        FT_Load_Glyph(pFont->face, index, FT_LOAD_DEFAULT);
+        pAdvanceHori[i] = pFont->face->glyph->metrics.horiAdvance >> 6;
+        pBearingYHori[i] = pFont->face->glyph->metrics.horiBearingY / 64;
+        if (L' ' == text[i] || L'　' == text[i])
+            pAdvanceHori[i] = (int)(pAdvanceHori[i] * pFont->spaceScale);
+        if (_tcxlib_get_text_pix(pFont, text[i], &pPixTemp[i]) != 0) {
+            free(pAdvanceHori);
+            free(pBearingYHori);
+            free(pKerning);
+            for (j = 0; j < i; j ++)
+                free(pPixTemp[j].buf);
+            free(pPixTemp);
+            return -1;
+        }
+    }
+    if (FT_HAS_KERNING(pFont->face)) {
+        FT_UInt left;
+        FT_UInt right;
+        FT_Vector kerning;
+        for (i = 0; i < count - 1; i ++) {
+            left  = FT_Get_Char_Index(pFont->face, text[i]);
+            right = FT_Get_Char_Index(pFont->face, text[i + 1]);
+            FT_Get_Kerning(pFont->face, left, right, FT_KERNING_DEFAULT, &kerning);
+            pKerning[i] = kerning.x / 64;
+        }
+        pKerning[i] = 0;
+    } else memset(pKerning, 0, count * sizeof(int));
+    pPix->initX = (int)pPixTemp[0].initX - pFont->bord;
+    temp = (int)pPixTemp[0].initY;
+    for (i = 1; i < count; i ++)
+        temp = __min(temp, (int)pPixTemp[i].initY);
+    pPix->initY = temp - pFont->bord;
+    pPix->width = pFont->bord - (int)pPixTemp[0].initX;
+    for (i = 0; i < count; i ++)
+        pPix->width += pAdvanceHori[i] + pKerning[i] + pFont->spacing;
+    pPix->width += pFont->bord - pFont->spacing + pPixTemp[count - 1].width + (int)pPixTemp[count - 1].initX - pAdvanceHori[count - 1];
+    above = pBearingYHori[0];
+    below = pPixTemp[0].height - pBearingYHori[0];
+    for (i = 1; i < count; i ++) {
+        above = __max(above, pBearingYHori[i]);
+        below = __max(below, pPixTemp[i].height - pBearingYHori[i]);
+    }
+    pPix->height = 2 * pFont->bord + above + below;
+    pPix->size = pPix->height * (pPix->width << 2);
+    pPix->buf = (unsigned char *)malloc(pPix->size * sizeof(unsigned char));
+    memset(pPix->buf, 0, pPix->size * sizeof(unsigned char));
+    offset_x = -(int)pPix->initX;
+    for (i = 0; i < count; i ++) {
+        offset_y = above - pBearingYHori[i];
+        for (h = 0; h < pPixTemp[i].height; h ++) {
+            for (w = 0; w < pPixTemp[i].width; w ++) {
+                offset_dst = ((h + offset_y) * pPix->width + w + offset_x + (int)pPixTemp[i].initX) << 2;
+                if (offset_dst < 0) {
+                    printf("%i %i %i\n", offset_y, (h + offset_y) * pPix->width, (int)pPixTemp[i].initX);
+                    MessageBoxW(NULL, L"D", L"D", MB_OK);
+                }
+                offset_src = (h * pPixTemp[i].width + w) << 2;
+                memcpy(pPix->buf + offset_dst, pPixTemp[i].buf + offset_src, 4 * sizeof(unsigned char));
+            }
+        }
+        offset_x += pAdvanceHori[i] + pKerning[i] + pFont->spacing;
+        free(pPixTemp[i].buf);
+    }
+    free(pAdvanceHori);
+    free(pBearingYHori);
+    free(pKerning);
+    free(pPixTemp);
+    return 0;
+}
+
+
+
+
+
+static int _tcxlib_get_texts_pix(const TCX_pFont pFont, const wchar_t *text, TCX_pPix pPix) {
+    int i, j, count, above, below, h, w, offset_x, offset_y, offset_dst, offset_src;
+    int *pAdvanceHori;
+    int *pBearingYHori;
+    int *pKerning;
+    FT_UInt index;
+    TCX_pPix pPixTemp;
+    count = wcslen(text);
+    pAdvanceHori = (int *)malloc(count * sizeof(int));
+    pBearingYHori = (int *)malloc(count * sizeof(int));
+    pKerning = (int *)malloc(count * sizeof(int));
+    pPixTemp = (TCX_pPix)malloc(count * sizeof(TCX_Pix));
+    for (i = 0; i < count; i ++) {
+        index = FT_Get_Char_Index(pFont->face, text[i]);
+        if (0 == index) {
+            free(pAdvanceHori);
+            free(pBearingYHori);
+            free(pKerning);
+            free(pPixTemp);
+            printf("TextPix Error: find an invalid text that does not exists in the font.\n");
+            return -1;
+        }
+        FT_Load_Glyph(pFont->face, index, FT_LOAD_DEFAULT);
+        pAdvanceHori[i] = pFont->face->glyph->metrics.horiAdvance >> 6;
+        pBearingYHori[i] = pFont->face->glyph->metrics.horiBearingY / 64;
+        if (L' ' == text[i] || L'　' == text[i])
+            pAdvanceHori[i] = (int)(pAdvanceHori[i] * pFont->spaceScale);
+        if (_tcxlib_get_text_pix(pFont, text[i], &pPixTemp[i]) != 0) {
+            free(pAdvanceHori);
+            free(pBearingYHori);
+            free(pKerning);
+            for (j = 0; j < i; j ++)
+                free(pPixTemp[j].buf);
+            free(pPixTemp);
+            return -1;
+        }
+    }
+    if (FT_HAS_KERNING(pFont->face)) {
+        FT_UInt left;
+        FT_UInt right;
+        FT_Vector kerning;
+        for (i = 0; i < count - 1; i ++) {
+            left  = FT_Get_Char_Index(pFont->face, text[i]);
+            right = FT_Get_Char_Index(pFont->face, text[i + 1]);
+            FT_Get_Kerning(pFont->face, left, right, FT_KERNING_DEFAULT, &kerning);
+            pKerning[i] = kerning.x / 64;
+        }
+        pKerning[i] = 0;
+    } else memset(pKerning, 0, count * sizeof(int));
+    pPix->initX = pPixTemp[0].initX;
+    pPix->initY = pPixTemp[0].initY;
+    for (i = 1; i < count; i ++)
+        pPix->initY = __min(pPix->initY, pPixTemp[i].initY);
+    pPix->width = -(int)pPixTemp[0].initX;
+    for (i = 0; i < count; i ++)
+        pPix->width += pAdvanceHori[i] + pKerning[i] + pFont->spacing;
+    pPix->width += pPixTemp[count - 1].width + (int)pPixTemp[count - 1].initX - pAdvanceHori[count - 1] - pFont->spacing;
+    above = pBearingYHori[0];
+    below = pPixTemp[0].height - pBearingYHori[0];
+    for (i = 1; i < count; i ++) {
+        above = __max(above, pBearingYHori[i]);
+        below = __max(below, pPixTemp[i].height - pBearingYHori[i]);
+    }
+    pPix->height = 2 * pFont->bord + above + below;
+    pPix->size = pPix->height * (pPix->width << 2);
+    pPix->buf = (unsigned char *)malloc(pPix->size * sizeof(unsigned char));
+    memset(pPix->buf, 0, pPix->size * sizeof(unsigned char));
+    offset_x = -(int)pPixTemp[0].initX;
+    for (i = 0; i < count; i ++) {
+        offset_y = above - pBearingYHori[i];
+        for (h = 0; h < pPixTemp[i].height; h ++) {
+            for (w = 0; w < pPixTemp[i].width; w ++) {
+                offset_dst = ((h + offset_y) * pPix->width + w + offset_x + (int)pPixTemp[i].initX) << 2;
+                offset_src = (h * pPixTemp[i].width + w) << 2;
+                if (0 != pPixTemp[i].buf[offset_src + 3])
+                    memcpy(pPix->buf + offset_dst, pPixTemp[i].buf + offset_src, 4 * sizeof(unsigned char));
+            }
+        }
+        offset_x += pAdvanceHori[i] + pKerning[i] + pFont->spacing;
+        free(pPixTemp[i].buf);
+    }
+    free(pAdvanceHori);
+    free(pBearingYHori);
+    free(pKerning);
+    free(pPixTemp);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+

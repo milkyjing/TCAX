@@ -1,0 +1,9 @@
+libmap: none (it is just a simple utility)
+libtcc: libmap
+libsyl: none
+libtm: libsyl, FreeType
+tcaxPy: Python
+tcax: libmap, libtcc, libsyl, libtm, tcaxPy, libtcas, (FreeType, Python), component - tcaxLib
+tcaxLib: FreeType, Python, libtcas, libpng, (zlib)
+
+

@@ -1,0 +1,5 @@
+PIX whose startTime > endTime are invalid ones, hence should not be writen to the file, however this check 
+happens only at the composition phase (to form a TCAS_BUF), thus when come to the writing process, validity 
+will not be checked again.
+
+Check happens in tcas_main, tcas_keyframe, tcas_user functions

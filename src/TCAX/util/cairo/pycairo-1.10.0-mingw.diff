@@ -1,0 +1,293 @@
+2555de4f2551ede4f39740332e1e14bfeafd724f
+ src/cairomodule.c |   16 ++++++++++++++++
+ src/compile.sh    |    1 +
+ src/config.h      |    5 +++++
+ src/context.c     |    2 +-
+ src/font.c        |    8 ++++----
+ src/libpython31.a |  Bin 0 -> 818560 bytes
+ src/matrix.c      |    2 +-
+ src/path.c        |    4 ++--
+ src/pattern.c     |   12 ++++++------
+ src/surface.c     |   18 +++++++++---------
+ 10 files changed, 45 insertions(+), 23 deletions(-)
+
+diff --git a/src/cairomodule.c b/src/cairomodule.c
+index cbe6605..c2be1cf 100644
+--- a/src/cairomodule.c
++++ b/src/cairomodule.c
+@@ -198,6 +198,22 @@ static struct PyModuleDef cairomodule = {
+   0,  /* m_free - not needed, since all is done in m_clear */
+ };
+ 
++#define Old_PyType_Ready PyType_Ready
++
++#undef PyType_Ready
++
++#undef PyType_Type
++__declspec(dllimport) extern PyTypeObject PyType_Type;
++
++int 
++PyType_Ready_fix(PyTypeObject* obj)
++{
++    obj->ob_base.ob_base.ob_type = &PyType_Type;
++    return Old_PyType_Ready(obj);
++}
++
++#define PyType_Ready PyType_Ready_fix
++
+ PyObject *
+ PyInit__cairo(void)
+ {
+diff --git a/src/compile.sh b/src/compile.sh
+new file mode 100644
+index 0000000..e876f38
+--- /dev/null
++++ b/src/compile.sh
+@@ -0,0 +1 @@
++gcc -shared -std=c99 -Wall -o _cairo.pyd -DHAVE_DECLSPEC_DLL -DPy_ENABLE_SHARED cairomodule.c context.c font.c matrix.c path.c pattern.c surface.c -I../../Python-3.2.1/Include -I../../Python-3.2.1 -I/usr/local/include/cairo -L/usr/local/lib -L. -lcairo -lpython31 -Wl,--enable-runtime-pseudo-reloc
+diff --git a/src/config.h b/src/config.h
+new file mode 100644
+index 0000000..e739924
+--- /dev/null
++++ b/src/config.h
+@@ -0,0 +1,5 @@
++#define VERSION "1.10.0"
++#define PYCAIRO_VERSION_MAJOR 1
++#define PYCAIRO_VERSION_MINOR 10
++#define PYCAIRO_VERSION_MICRO 0
++
+diff --git a/src/context.c b/src/context.c
+index 9bee5d4..5343186 100644
+--- a/src/context.c
++++ b/src/context.c
+@@ -1329,7 +1329,7 @@ static PyMethodDef pycairo_methods[] = {
+ };
+ 
+ PyTypeObject PycairoContext_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //  PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Context",                    /* tp_name */
+diff --git a/src/font.c b/src/font.c
+index 6c7ca4e..766632d 100644
+--- a/src/font.c
++++ b/src/font.c
+@@ -90,7 +90,7 @@ static PyMethodDef font_face_methods[] = {
+ */
+ 
+ PyTypeObject PycairoFontFace_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.FontFace",                   /* tp_name */
+@@ -178,7 +178,7 @@ static PyMethodDef toy_font_face_methods[] = {
+ 
+ 
+ PyTypeObject PycairoToyFontFace_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.ToyFontFace",                /* tp_name */
+@@ -340,7 +340,7 @@ static PyMethodDef scaled_font_methods[] = {
+ 
+ 
+ PyTypeObject PycairoScaledFont_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.ScaledFont",                 /* tp_name */
+@@ -527,7 +527,7 @@ static PyMethodDef font_options_methods[] = {
+ 
+ 
+ PyTypeObject PycairoFontOptions_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.FontOptions",                /* tp_name */
+diff --git a/src/libpython31.a b/src/libpython31.a
+new file mode 100644
+index 0000000..0ad073c
+Binary files /dev/null and b/src/libpython31.a differ
+diff --git a/src/matrix.c b/src/matrix.c
+index 122e700..a12b329 100644
+--- a/src/matrix.c
++++ b/src/matrix.c
+@@ -284,7 +284,7 @@ static PyMethodDef matrix_methods[] = {
+ };
+ 
+ PyTypeObject PycairoMatrix_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Matrix",                     /* tp_name */
+diff --git a/src/path.c b/src/path.c
+index e0814d8..7542eea 100644
+--- a/src/path.c
++++ b/src/path.c
+@@ -165,7 +165,7 @@ static PyObject * path_iter(PyObject *seq); /* forward declaration */
+ 
+ 
+ PyTypeObject PycairoPath_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,				        /* ob_size */
+   "cairo.Path",			/* tp_name */
+@@ -286,7 +286,7 @@ pathiter_next(PycairoPathiter *it) {
+ }
+ 
+ PyTypeObject PycairoPathiter_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Pathiter",                   /* tp_name */
+diff --git a/src/pattern.c b/src/pattern.c
+index 9daf5c4..23d2ab9 100644
+--- a/src/pattern.c
++++ b/src/pattern.c
+@@ -153,7 +153,7 @@ static PyMethodDef pattern_methods[] = {
+ };
+ 
+ PyTypeObject PycairoPattern_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Pattern",                    /* tp_name */
+@@ -223,7 +223,7 @@ static PyMethodDef solid_pattern_methods[] = {
+ };
+ 
+ PyTypeObject PycairoSolidPattern_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.SolidPattern",               /* tp_name */
+@@ -316,7 +316,7 @@ static PyMethodDef surface_pattern_methods[] = {
+ };
+ 
+ PyTypeObject PycairoSurfacePattern_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.SurfacePattern",             /* tp_name */
+@@ -402,7 +402,7 @@ static PyMethodDef gradient_methods[] = {
+ };
+ 
+ PyTypeObject PycairoGradient_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Gradient",                   /* tp_name */
+@@ -473,7 +473,7 @@ static PyMethodDef linear_gradient_methods[] = {
+ };
+ 
+ PyTypeObject PycairoLinearGradient_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.LinearGradient",             /* tp_name */
+@@ -546,7 +546,7 @@ static PyMethodDef radial_gradient_methods[] = {
+ };
+ 
+ PyTypeObject PycairoRadialGradient_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.RadialGradient",             /* tp_name */
+diff --git a/src/surface.c b/src/surface.c
+index 5e630b5..b1c99c7 100644
+--- a/src/surface.c
++++ b/src/surface.c
+@@ -347,7 +347,7 @@ static PyMethodDef surface_methods[] = {
+ 
+ 
+ PyTypeObject PycairoSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Surface",                    /* tp_name */
+@@ -646,7 +646,7 @@ static PyMethodDef image_surface_methods[] = {
+ 
+ 
+ PyTypeObject PycairoImageSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //  PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.ImageSurface",               /* tp_name */
+@@ -771,7 +771,7 @@ static PyMethodDef pdf_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoPDFSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //  PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.PDFSurface",                 /* tp_name */
+@@ -974,7 +974,7 @@ static PyMethodDef ps_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoPSSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.PSSurface",                  /* tp_name */
+@@ -1089,7 +1089,7 @@ static PyMethodDef svg_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoSVGSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.SVGSurface",                 /* tp_name */
+@@ -1155,7 +1155,7 @@ static PyMethodDef win32_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoWin32Surface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Win32Surface",               /* tp_name */
+@@ -1218,7 +1218,7 @@ static PyMethodDef win32_printing_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoWin32PrintingSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.Win32PrintingSurface",       /* tp_name */
+@@ -1368,7 +1368,7 @@ static PyMethodDef xcb_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoXCBSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.XCBSurface",                 /* tp_name */
+@@ -1449,7 +1449,7 @@ static PyMethodDef xlib_surface_methods[] = {
+ };
+ 
+ PyTypeObject PycairoXlibSurface_Type = {
+-  PyVarObject_HEAD_INIT(&PyType_Type, 0)
++  PyVarObject_HEAD_INIT((PyTypeObject*)0x7FFFFFFF, 0)
+   //PyObject_HEAD_INIT(NULL)
+   //0,                                  /* ob_size */
+   "cairo.XlibSurface",                /* tp_name */

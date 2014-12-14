@@ -1,0 +1,144 @@
+中文版变更说明见: http://tcax.rhacg.com/forum.php?mod=viewthread&tid=13
+
+
+Changelog:
+
+
+TCAX Latest
+
+bug-fix tcCurve.py  - fix the wrong expressions of derivatives of x(t) and y(t) in UCBSpline class
+update tcaxPy.py    - change on tag: org, now supports floating numbers
+
+
+
+TCAX 1.2.0 (August 3rd, 2012) [Anniversary]
+
+bug-fix tcaxLib.pyd  - fix a bug of TextOutlinePoints brought in by changing point structure to ((x, y, a), (x, y, a), ...)
+update gdiFont.pyd   - add gfGetOutlinePoints function
+update tcax.exe & tcaxPy.py - add support for adding 3rd party packages, e.g. PIL, PyOpenGL, Numpy, etc.
+update tcaxPy.py     - change on tags: fs, fax, fay, frx, fry, frz, fr, now support floating numbers
+update tcaxPy.py     - delete useless legacy functions: MovToPos, RectClip, CirClip, RandClip
+update tcaxPy.py     - add more PIX manipulation functions: PixInvertA, PixR2A, PixA2RGB, PixAddA, PixSwitchRB
+update tcax          - add tcCurve utility
+update tcaxPy.py     - add AssDrawOffset function
+
+
+
+TCAX 1.1.9 SP1 (May 10th, 2012)
+
+update tcaxLib.pyd   - add CairoFontSize and GetFontSize functions to fix the cairo font size issue
+update tcax.exe & tcasLib.pyd & tcasFilter.dll & timeShift.exe & parser.exe & merger.exe - add minus starting time support (from -2147483648 to 2147483647 milliseconds)
+update tcax          - add gdiFont.pyd module to support fixing the positioning issue
+update tcaxLib.pyd   - change point structure, add the alpha information, ((x, y, a), (x, y, a), ...)
+update tcaxPy.py     - add PixFromPoints and PixPointsV functions
+update tcaxLib.pyd   - add tcas_parse function to support parsing of complex TCAS_BUF
+
+
+
+TCAX 1.1.9 (February 29th, 2012)
+
+bug-fix tcax.exe & tcaxLib.pyd & util.magick - solved the font size issue
+
+
+
+TCAX 1.1.8 (February 24th, 2012)
+
+update tcaxLib.pyd   - update PixMask, use 8-bit mask instead of 2-bit mask, to eliminate possible aliasing
+update tcaxPy.py     - add more functions (GetRootDir, PixPos, PixPosShift)
+bug-fix tcaxLib.pyd  - fix a bug in CombinePixs, more stable for handling fractional PIX pos
+bug-fix tcasFilter.dll - fix a small bug in the generation of linearized index streams, which caused the duplicate frame of the very first TCAS FX frame.
+update tcax          - add util.magick module
+update tcax.exe      - change the definition of font size to meet the one used in both util.cairo and util.magick modules
+update tcasFilter.dll - update frame cache functionality, now the number of frames being cached can be configured, set to 0 to disable the frame cache functionality (this is mainly aimed to reduce the memory usage), the default value is 20.
+update util.cairo    - add ToAssDraw function which converts cairo path to ass draw string, just the opposite of AssDraw function, use this function, we now can generate ASS mask with multiple texts
+update tcax          - more built-in scripts available at http://tcax.rhacg.com/forum.php?mod=forumdisplay&fid=54
+(1.0.0 SP1)
+update tcax          - update version information
+update tcaxLib.pyd   - update PixResize and PixResizeF function to meet the new principle of PIX manipulation, to maintain the stable of the center point of the PIX, i.e., the PIX’s center will stay unchanged after applying a certain PIX manipulation method.
+bug-fix tcaxLib.pyd  - fixed a bug in _tcaxlib_get_text_pix function, for details, see http://tcax.rhacg.com/forum.php?mod=viewthread&tid=187
+update tcax          - add the latest tcaxPy.py, the source code of tcaxPy.pyc module
+
+
+
+TCAX 1.0.0 (January 4th, 2012)
+
+update tcasFilter.dll - optimized the resampling approach by using MMX, and use bilinear resampling over the old bicubic resampling, though the quality has decreased slightly, the speed increased dramatically and the rendering can be done in real-time even if the resolution of the TCAS FX did not match the video resolution.
+update KASS.exe      - add an additional {\K4} to the beginning of each syllable line
+update tcaxLib.pyd   - update WriteTcasFile function to support incomplete TCAS file
+update parser.exe    - optimized the performance of initializing, fixed a bug concerning parsing of incomplete TCAS files.
+update merger.exe    - optimized the performance of initializing, fixed a bug concerning parsing of incomplete TCAS files.
+update tcasFilter.dll - optimized the performance of opening a TCAS file, (the speed has been increased tens of times)
+bug-fix tcasFilter.dll - a small memory leak during the opening of a TCAS file (when linearizing the chunk index)
+bug-fix tcasFilter.dll - fixed a bug so that it now supports viewing of incomplete parsed TCAS file
+update tcax          - add PyCairo Beta version as an important utility of TCAX.
+update tcax          - update to use FreeType 2.4.8 (previous 2.4.5), libpng 1.5.7 (previous 1.4.3)
+update tcax & tcaxPy.py - you can get the font face name through GetVal(val_FontFaceName) in case you do need it, like, in cairo and magick
+bug-fix tcaxLib.pyd  - fixed a bug in WriteTcasFile now can accept empty TCAS_BUF
+bug-fix tcaxLib.pyd  - fixed a bug in ConvertBigPix function concerning positioning
+update tcaxLib.pyd   - add PixResizeF and ScaleFilter functions to support smooth resizing
+update tcaxLib.pyd   - update PixMask, make things more usable
+update tcasFilter.dll - key framing type2 bug fix
+update tcax          - some other small updates
+
+
+
+TCAX 0.9.9 (October 27th, 2011)
+
+update tcax.exe      - update to support incomplete TCAS file.
+update tcasFilter.dll - update to support incomplete TCAS file.
+update tcaxLib.pyd   - update to support the zlib compressed TCAS file
+bug-fix tcaxLib.pyd  - fixed a positioning bug in CombinePixs function
+update tcax          - add parser.exe to support the parsing of compressed TCAS file (to parsed TCAS file)
+update tcasFilter.dll - update to support parsed TCAS file
+update shiftTime.exe - update to support parsed TCAS file
+update tcax          - add util folder which will contain utility libs for tcax
+update tcax          - add AssStyles.py a wrapper class for easy access to multiple ASS styles
+update tcax          - add merger.exe to support the merging of two compressed TCAS files with the same type resolution and fps into a single parsed TCAS file
+update tcax          - add icons and assoc.exe for file association
+update tcax.exe      - other small updates
+(Beta3 SP2)
+update tcax.exe      - update the parsing of TCC file, more fault tolerant.
+update tcax.exe      - more detailed error information is provided when an error occurred.
+update tcasFilter.dll - add frame cache support to improve the performance
+update tcasFilter.dll - add zlib compression support to save the disc usage
+update tcax.exe      - add zlib compression support of TCAS file to save the disc usage (about 50%)
+update tcax.exe      - polished the showing of progress, add execution duration display (in seconds)
+update shiftTime.exe - update to support the z compressed TCAS file
+(Beta3 SP1)
+update tcax.exe      - remove the first NULL k tag (k tag with no text following it) from each syl line, and add its value to the start time
+small change on tcax.exe - tcaxPy script template, use GetHelp function instead of tcaxGetValueIDsInfo function
+update tcax.exe      - update the console interface, more sophisticated
+update tcax.exe      - K ASS filename check, cannot be the same as the output filename.
+update tcaxLib.pyd   - add some functions
+update tcaxPy.pyc    - add some functions
+update tcax          - add some test built-in tcax py scripts
+update tcax          - add XXParticleSystem
+
+
+
+TCAX Beta3 (Auguest 18th, 2011)
+
+update colorFont.exe - add copy font file to clipboard function.
+update tcaxLib.pyd   - add AppendAssFile function (to support using multiple tcaxPy scripts implementing the tcaxPy_User function)
+update tcaxPy.py     - refine the legacy code, add some more ASS tags and useful functions
+update tcax          - add a folder named extLibs for storing external libraries
+update tcax          - add built-in tcaxPy script support, and add some basic built-in tcaxPy scripts
+update tcax          - add a shortcut for using built-in scripts in TCC py settings, use !in_001.py instead of !\scripts\IN\in_001.py
+bug-fix tcax.exe     - fixed a bug of the setting of blur in TCC file, which would always resulted in 0 when exposed to the tcaxPy scripts in the previous versions.
+
+
+
+TCAX Beta2 (August 3rd, 2011)
+
+bug-fix  tcax.exe      - fixed a bug concerning the generation of default tcaxPy script (in the previous versions, you should first close tcax.exe, then can you see the content of the tcaxPy script)
+bug-fix  tcax.exe      - fixed a bug concerning blank syllable lines.
+update   tcax.exe      - set default alignment, an1 for horizontal layout, an9 for vertical layout.
+update   tcax.exe      - if the font is not in the current project folder, but in the Windows Fonts folder, then, at the first time of execution, the font file will be copied to the current project folder.
+bug-fix  pixStone.pyd  - a bug concerning pstEffect function
+
+
+
+TCAX Beta (July 27th, 2011)
+
+the initial version
+

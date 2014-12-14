@@ -1,0 +1,13 @@
+;===========================================================================
+;  Copyright (c) 2011  milkyjing.  All Rights Reserved.
+;===========================================================================
+
+LIBRARY     tcasFilter.dll
+
+EXPORTS
+            DllMain                 PRIVATE
+            DllGetClassObject       PRIVATE
+            DllCanUnloadNow         PRIVATE
+            DllRegisterServer       PRIVATE
+            DllUnregisterServer     PRIVATE
+

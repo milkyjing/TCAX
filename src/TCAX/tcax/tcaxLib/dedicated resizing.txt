@@ -1,0 +1,4 @@
+when change a text size from 30 to 40 during 23 frames (e.g., {\K100})
+the shape jerked... (although the move can be smoothed by Bilinear filtering)
+
+solution: should be able to deal with image width and height of float number

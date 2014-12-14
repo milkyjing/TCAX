@@ -1,0 +1,28 @@
+core (base)
+tcas.c tcas.h, includes: vector.h vector.c, provides basic functionality
+
+
+high level api (need pthreads)
+hla_mt.c hla_mt.h, includes the tcas base, and threadpool.c threadpool.h which is implemented upon pthreads-win32
+
+hla_mt_mm.c hla_mt_mm.h, includes the tcas base, mapfile.c mapfile.h, and threadpool.c threadpool.h which is implemented upon pthreads-win32
+
+
+high level api (cache functionality)
+hla_file_cache.c hla_file_cache.h, includes the tcas base (after several comprehensive testing, these APIs are not suitable for practical use, and replaced by the hla_chunk_cache API set)
+
+hla_chunk_cache.c hla_chunk_cache.h, includes the tcas base, queue.c queue.h, rb.c rb.h, and avl.c, avl.h
+
+hla_frame_cache.c hla_frame_cache.h, includes the tcas base, and queue.c queue.h
+
+hla_double_cache.c hla_double_cache.h, includes the hla_chunk_cache
+
+hla_framer.c hla_framer.h, includes the tcas base
+
+hla_stream_parser.c hla_stream_parser.h, includes the tcas base
+
+
+high level api (compression functionality, for practical use)
+hla_z_comp.c hla_z_comp.h, includes the tcas base and the zlib
+
+

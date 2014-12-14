@@ -1,0 +1,63 @@
+#include "png.h"
+#pragma comment(lib, "zlib.lib")
+#pragma comment(lib, "libpng.lib")
+
+#define PNG_SIG_BYTES 8
+
+int main() {
+    FILE *fp = NULL;
+    if (::fopen_s(&fp, "test.png", "rb") != 0) return 0;
+    unsigned char Buf[PNG_SIG_BYTES];
+    ::fread(Buf, sizeof(unsigned char), PNG_SIG_BYTES, fp);
+    if (::png_sig_cmp(Buf, 0, PNG_SIG_BYTES) != 0) return 0;
+    ::printf_s("%s", "Is a PNG file!\n");
+    // open
+    png_structp png_ptr = ::png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png_infop info_ptr = ::png_create_info_struct(png_ptr);
+    ::setjmp(png_jmpbuf(png_ptr));    // C Exception Handling
+    ::png_set_sig_bytes(png_ptr, PNG_SIG_BYTES);
+    ::png_init_io(png_ptr, fp);
+    ::png_read_info(png_ptr, info_ptr);
+    int width = info_ptr->width;
+    int height = info_ptr->height;
+    int depth = info_ptr->bit_depth;
+    int type = info_ptr->color_type;
+    int channels = info_ptr->channels;
+    int bits = info_ptr->pixel_depth;
+    ::printf_s("width = %i\nheight = %i\ndepth = %i\ntype = %i\nchannels = %i\npixel_bits = %i\n", width, height, depth, type, channels, bits);
+    png_bytepp img_data = new png_bytep [height];
+    for (int i = 0; i < height; i ++) {
+        img_data[i] = new png_byte [info_ptr->rowbytes];
+    }
+    ::png_read_image(png_ptr, img_data);    // img_data[i] is 'RGB'
+    // process
+    for (int i = 0; i < height; i ++) {
+        for (int j = 0; j < width; j ++) {
+            //img_data[i][j * 3 + 0] = 0;   // no red
+            img_data[i][j * 3 + 1] = 0;   // no green
+            img_data[i][j * 3 + 2] = 0;   // no blue
+        }
+    }
+    // save
+    FILE *fp_save = NULL;
+    ::fopen_s(&fp_save, "save.png", "wb");
+    png_structp png_save_ptr = ::png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png_infop info_save_ptr = ::png_create_info_struct(png_save_ptr);
+    ::png_init_io(png_save_ptr, fp_save);
+    ::setjmp(png_jmpbuf(png_save_ptr));
+    ::png_set_IHDR(png_save_ptr, info_save_ptr, width, height, depth, type, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+    ::png_write_info(png_save_ptr, info_save_ptr);
+    ::png_write_image(png_save_ptr, img_data);
+    ::png_write_end(png_save_ptr, NULL);
+    // delete
+    for (int i = 0; i < height; i ++) {
+        delete[] img_data[i];
+    }
+    delete[] img_data;
+    ::png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+    ::png_destroy_write_struct(&png_save_ptr, &info_save_ptr);
+    ::fclose(fp);
+    ::fclose(fp_save);
+    return 0;
+}
+

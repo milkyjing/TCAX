@@ -1,0 +1,3 @@
+﻿DONE: should handle relative file names
+DONE: A bug raised when invoke the same py script more than once, and with InitFont in the Init func, FinFont in the Fin Func. It seems that the second time FinFont receives a false parameter, while the first time is OK. NOTE: this buf is fixed simply by change `(pointer)' to `pointer', i.e., use global integer object rather than global tuple which may have some side effect
+DONE: Memory Leaks in pixStone... seriously..

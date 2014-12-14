@@ -1,0 +1,5 @@
+void Message(int i) {
+    char sz[37];
+    sprintf(sz, "%i", i);
+    MessageBoxA(NULL, sz, "Info", MB_OK);
+}

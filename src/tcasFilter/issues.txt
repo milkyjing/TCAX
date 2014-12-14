@@ -1,0 +1,4 @@
+TcasFilter DirectShow interface:
+    now only tested functioning good with MP4, AVI, MKV files, using CoreCodec, and auto load the AVI Decompressor (which may hold the MSYUV).
+with RMVB, seek function is not functioning.
+

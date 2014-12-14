@@ -1,0 +1,8 @@
+﻿Added SYL_InfoToTcx structure and related functions (libsyl_info_to_tcx_with_word, libsyl_info_to_tcx_with_syl, libsyl_info_to_tcx_with_adv, libsyl_free_info)
+
+Added function libsyl_create_simplest_syl_string()
+
+
+
+
+

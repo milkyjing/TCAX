@@ -1,0 +1,9 @@
+
+                TCAS_File file;
+                file.fp = fopen("I:\\RIXE\\libtcas\\trunk\\src\\alpha\\zlib\\ztest\\t.tcas", "wb");
+                libtcas_read_specified_chunk(pFile, ((tcas_u64)pOrderedIndexLast->offset) << 2, &pChunksCache->pChunks[i]);  /* otherwise, we do not have to read it again */
+                libtcas_write(&file, pChunksCache->pChunks[i].pos_and_color, GETCOUNT(pChunksCache->pChunks[i].cltp) * 2);
+                fclose(file.fp);
+                MessageBox(NULL, L"D", L"D", 0);
+
+

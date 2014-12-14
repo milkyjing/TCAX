@@ -1,0 +1,3 @@
+﻿Added TM_InfoToTcx structure and added related functions (libtm_info_to_tcx_with_text, libtm_info_to_tcx_with_word, libtm_info_to_tcx_with_adv and libtm_free_info)
+
+fixed bug `>> 6' to `/ 64' (becuase some value may be minus...)

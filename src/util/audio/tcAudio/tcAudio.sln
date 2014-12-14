@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tcAudio", "tcAudio.vcxproj", "{60933494-5F8F-41F6-9593-B6EDEB03B07C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60933494-5F8F-41F6-9593-B6EDEB03B07C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{60933494-5F8F-41F6-9593-B6EDEB03B07C}.Debug|Win32.Build.0 = Debug|Win32
+		{60933494-5F8F-41F6-9593-B6EDEB03B07C}.Release|Win32.ActiveCfg = Release|Win32
+		{60933494-5F8F-41F6-9593-B6EDEB03B07C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

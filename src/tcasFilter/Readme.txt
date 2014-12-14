@@ -1,0 +1,1 @@
+﻿To compile tcsfilter, you need the avisynth.h and libtcas

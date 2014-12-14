@@ -1,0 +1,4 @@
+﻿Complete the TCC specification
+
+Implement libtcc (including define TCC_Attributes and implement libtcc_parse_tcc_string - may require additional work such as the implementation of string)
+

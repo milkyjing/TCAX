@@ -1,0 +1,32 @@
+﻿﻿[Script Info]
+Title:railgun ed
+Author:milkyjing
+Fansub:TC Fansub
+ScriptType: v4.00+
+Collisions:Normal
+PlayResX:1280
+PlayResY:720
+Timer:100.0000
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TCMS,EPSON 太丸ゴシック体Ｂ,34,&H00FF8A15,&HFF000000,&H00F0F0F0,&HCC000000,-1,0,0,0,100,100,0,0.00,1,2,1,5,15,15,10,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:07.16,0:00:08.76,Default,NTP,0000,0000,0000,,{\k45}Dear {\k50}My {\k65}Friend
+Dialogue: 0,0:00:08.81,0:00:14.47,Default,NTP,0000,0000,0000,,{\k94}Every {\k35}day {\k5}& {\k165}night {\k115}Always {\k28}be {\k47}with {\k77}you
+Dialogue: 0,0:00:14.51,0:00:16.08,Default,NTP,0000,0000,0000,,{\k58}Dear {\k32}My {\k67}Friend
+Dialogue: 0,0:00:16.12,0:00:22.12,Default,NTP,0000,0000,0000,,{\k107}Every {\k24}day & {\k181}night {\k112}Always {\k54}be {\k71}with {\k51}you
+Dialogue: 0,0:00:22.87,0:00:29.25,Default,NTP,0000,0000,0000,,{\k69}話{\k60}し{\k42}て{\k141}も　{\k27}ま{\k20}だ{\k26}ま{\k47}だ　{\k23}足{\k48}り{\k23}な{\k16}い{\k47}ま{\k53}ま
+Dialogue: 0,0:00:30.42,0:00:37.02,Default,NTP,0000,0000,0000,,{\k66}夕{\k54}焼{\k47}け{\k138}が　{\k41}街{\k16}を{\k59}染{\k22}め{\k48}て{\k49}ゆ{\k125}く
+Dialogue: 0,0:00:37.85,0:00:44.40,Default,NTP,0000,0000,0000,,{\k50}思{\k65}う{\k31}よ{\k26}う{\k135}に　{\k23}な{\k21}か{\k17}な{\k46}か　{\k24}い{\k52}か{\k50}な{\k48}い...っ{\k70}て
+Dialogue: 0,0:00:45.27,0:00:52.23,Default,NTP,0000,0000,0000,,{\k41}気{\k24}づ{\k56}い{\k25}た{\k153}ら　{\k45}一{\k32}緒{\k48}に　{\k26}泣{\k39}い{\k49}て{\k52}い{\k110}た
+Dialogue: 0,0:00:52.71,0:00:58.96,Default,NTP,0000,0000,0000,,{\k40}恋{\k25}も　{\k57}夢{\k21}も　{\k50}花{\k22}も　{\k49}虹{\k20}も　{\k47}風{\k48}も　{\k18}ぜ{\k17}ん{\k28}ぶ{\k53}掴{\k23}も{\k37}う{\k71}よ
+Dialogue: 0,0:00:59.01,0:01:00.63,Default,NTP,0000,0000,0000,,{\k29}ダ{\k18}イ{\k26}ジョ{\k26}ウ{\k65}ブ！
+Dialogue: 0,0:01:00.88,0:01:06.83,Default,NTP,0000,0000,0000,,{\k46}元{\k27}気{\k14}出{\k52}し{\k51}て　{\k90}私{\k74}が{\k45}そ{\k23}ば{\k24}に{\k24}い{\k37}る{\k32}か{\k58}ら
+Dialogue: 0,0:01:07.15,0:01:13.79,Default,NTP,0000,0000,0000,,{\k24}今{\k23}日{\k50}の{\k16}ミ{\k77}ス　{\k22}悔{\k26}や{\k44}む{\k26}よ{\k43}り　{\k134}今　{\k31}乗{\k23}り{\k26}越{\k21}え{\k80}て
+Dialogue: 0,0:01:13.91,0:01:15.51,Default,NTP,0000,0000,0000,,{\k24}ダ{\k20}イ{\k29}ジョ{\k25}ウ{\k62}ブ！
+Dialogue: 0,0:01:15.76,0:01:23.56,Default,NTP,0000,0000,0000,,{\k47}迷{\k24}わ{\k23}な{\k48}い{\k41}で　{\k29}ま{\k48}だ{\k25}見{\k82}ぬ{\k33}未{\k41}来{\k27}へ{\k47}と{\k46}向{\k94}かっ{\k124}て
+Dialogue: 0,0:01:23.68,0:01:28.76,Default,NTP,0000,0000,0000,,{\k48}ずっ{\k233}と　{\k46}歩{\k27}い{\k19}て{\k30}ゆ{\k22}こ{\k103}う
+Dialogue: 0,0:01:28.76,0:01:34.90,Default,NTP,0000,0000,0000,,{\k53}Every {\k60}day {\k7}& {\k162}night {\k123}Always {\k21}be {\k20}with {\k146}you

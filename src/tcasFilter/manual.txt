@@ -1,0 +1,3 @@
+﻿there are three kinds of Frame rate, video frame rate, TCS FX frame rate, and user specified frame rate. 
+TCS FX frame rate is just provided as a extra information, in most conditions it will just be ignored. 
+if there is no user specified frame rate, video frame rate will be used to render the target TCS FX.

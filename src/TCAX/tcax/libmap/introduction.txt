@@ -1,0 +1,62 @@
+What is libmap?
+
+libmap is the implementation of the tcc_map specification.
+
+
+tcc map specification:
+
+tcc map file can be regarded as a very simplified xml file, it is used to store a relatively small amount of (key, value) pairs in a plain text file, 
+of which, key and value are human readable and duplicate keys are allowed, orders of keys with different names is not a matter, however orders of keys 
+with the same name may be significant.
+
+libmap is used to interpret the file into an object in memory.
+
+One of the most important feature of tcc map is its robustness.
+
+tcc map files are all encoded in UTF-8 encoding.
+
+the basic element of tcc_map is enclosed in a <> mark, key and value are separate with = mark, all markups will be normal text if quoted by "", so what if
+you want to have a " as a text in the key or value field? don't worry, "" markup is valid only put in the key field or the value field two "" in a "" markups means 
+you want a normal " other than a mark. And whether to use it is just optional, if you want to have a "" markup either on the key field or the value field, 
+you should specify a " mark on the very beginning before a non-blank character, and at the very end after the last non-blank character, hence all " marks in-between 
+non-blank characters will be regarded as simple texts, Note that all markups in-between the "" mark will be regarded as normal text, so be careful when using quote "" mark.
+
+examples:
+
+1. < key = value >, key is 'key', value is 'value'
+
+2. <k  ey    =  value   >, key is 'k ey', value is 'value', Note, all spaces on the left or the right of the text will be discarded, all spaces between texts will be merged into a single space.
+
+3. < "key" = value >, key is 'key', value is value
+
+4. < " >key <=  " = "va""
+lue">, key is ' >key <=  ', value is 'va"
+lue', if you want to keep the spaces, and want to have the special markups as normal texts, use the quote mark.
+
+5. <"ke""=value"=value>, looks strange, but this is valid, key is 'ke"=value', value is 'value'
+
+invalid ones:
+
+1. < k"ey" = value>
+
+2. < ""key = value>
+
+3. <"key = value">
+
+if you want to use the "" markup, there should be one " between the markup < and the very first non-space text, and one " after the last non-space text and before the markup >
+
+4. <"ke""y=""value""<="=value">, looks strange, but its key is valid, key is 'ke"y="value"<=', value is invalid
+
+
+IMPORTANT NOTE,
+when stored a normal " text in the key or value, it will be stored as double "", this is to improve the performance, the key and value will not copy the whole string, but reference to the text 
+buffer, so, it will not change the double "" into one ", thus, if you want to compare a key or value, before passing them to the map, you should replace all " to "".
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+﻿
+PY_Error_Code _tcaxpy_convert_file_to_ansi(const char *filename) {
+    FILE *fp;
+    unsigned char sig[3];
+    sig[0] = 0xFF;
+    sig[1] = 0xFF;
+    sig[2] = 0xFF;
+    fp = fopen(filename, "rb");
+    if (!fp) return py_error_file_cant_open;
+    fread(sig, sizeof(unsigned char), 3, fp);
+    fclose(fp);
+    if ((0xFF == sig[0] && 0xFE == sig[1]) || (0xFE == sig[0] && 0xFF == sig[1]) || (0xEF == sig[0] && 0xBB == sig[1] && 0xBF == sig[2])) {
+        int size;
+        char *ansi;
+        if (_tcaxpy_read_file_to_ansi(filename, &ansi, &size) != py_error_success) return py_error_file_while_reading;
+        fp = fopen(filename, "wb");
+        if (!fp) {
+            free(ansi);
+            return py_error_file_cant_open;
+        }
+        if (fwrite(ansi, sizeof(char), size, fp) != size) {
+            free(ansi);
+            fclose(fp);
+            return py_error_file_while_writing;
+        }
+        free(ansi);
+        fclose(fp);
+    }
+    return py_error_success;
+}

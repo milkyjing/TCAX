@@ -1,0 +1,3 @@
+﻿check the functions on HIGH LEVEL API part, and finish the implementation of parsing compressed TCAS file with linearized index streams.
+
+after that, start the project of `The TCAX Porject'

@@ -1,0 +1,1 @@
+﻿there are some problem with function tcxpy_exec_py_script() caused by Python function PyRun_SimpleFile, this error occurs in Windows 7 Visual Studio 2010

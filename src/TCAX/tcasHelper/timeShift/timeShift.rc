@@ -1,0 +1,160 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, PRC) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON                ICON                    "timeShift.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG DIALOGEX 0, 0, 345, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_STATICEDGE | WS_EX_APPWINDOW
+CAPTION "timeShift for tcasHelper"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "File Input",IDC_BTM_FILE,24,27,45,18
+    PUSHBUTTON      "TCAS Info",IDC_BTM_TCASINFO,24,61,45,18
+    EDITTEXT        IDC_EDIT_FILE,78,27,233,18,ES_AUTOHSCROLL | ES_WANTRETURN,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    GROUPBOX        "Shift Time",IDC_STATIC,78,57,233,93,BS_RIGHT
+    CONTROL         "Make a copy",IDC_CHECK_SAVECOPY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,74,65,10
+    LTEXT           "Time to shift: (millisecond)",IDC_STATIC,189,74,113,10
+    CONTROL         "forward (+)",IDC_RADIO_FORWARD,"Button",BS_AUTORADIOBUTTON | WS_GROUP,189,122,54,10
+    CONTROL         "backward (-)",IDC_RADIO_BACK,"Button",BS_AUTORADIOBUTTON,250,122,52,10
+    DEFPUSHBUTTON   "Start shifting",IDC_BTM_SHIFTTIME,93,117,65,18
+    EDITTEXT        IDC_EDIT_HOUR,189,92,12,13,ES_NUMBER,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_MIN,207,92,17,13,ES_NUMBER,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_SEC,230,92,17,13,ES_NUMBER,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT_SS,253,92,21,13,ES_NUMBER,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CTEXT           ":",IDC_STATIC,202,94,8,13
+    CTEXT           ":",IDC_STATIC,225,94,8,13
+    CTEXT           ".",IDC_STATIC,248,95,8,13
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,3,0,1
+ PRODUCTVERSION 0,3,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x29L
+#else
+ FILEFLAGS 0x28L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "timeShift - by milkyjing"
+            VALUE "CompanyName", "Ternary Color Fansub"
+            VALUE "FileDescription", "timeShift for tcasHelper"
+            VALUE "FileVersion", "0, 3, 0, 1"
+            VALUE "InternalName", "timeShift"
+            VALUE "LegalCopyright", "Copyright (C) 2011 Ternary Color Fansub"
+            VALUE "LegalTrademarks", "milkyjing"
+            VALUE "OriginalFilename", "timeShift.exe"
+            VALUE "PrivateBuild", "False"
+            VALUE "ProductName", "timeShift"
+            VALUE "ProductVersion", "0, 3, 0, 1"
+            VALUE "SpecialBuild", "False"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG, DIALOG
+    BEGIN
+        VERTGUIDE, 93
+        HORZGUIDE, 74
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Chinese (Simplified, PRC) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

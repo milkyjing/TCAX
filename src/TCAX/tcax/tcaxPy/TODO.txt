@@ -1,0 +1,13 @@
+﻿add a function in test.c (#include "../libtcc", "../libsyl", "../libtm") to help initialize PY_InitData (deep copy),
+add a function in py.h and py.c tcxpy_free_initdata() to free all the data
+
+or we can consider make tcxpy depending on libtcc, libsyl and libtm.
+
+-----------------------------------------
+
+add other functions
+
+
+-----------------------
+
+add tcxPy_Fin()

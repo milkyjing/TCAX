@@ -1,0 +1,16 @@
+﻿Added some comments
+Added function tcxpy_init_base_py_module()
+
+# Version: ver0.7.3.5 build20100109
+# Revision: ver0.7.3.6 build20100902
+
+initial version of tcxPy in tcxCore project
+
+
+Added function tcxpy_init_user_py_module()
+
+Added function tcxpy_fin_tcxpy()
+
+----------------------------
+
+Fixed bugs in function tcxpy_init_base_py_module()

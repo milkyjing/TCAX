@@ -1,0 +1,8 @@
+
+#include <stdio.h>
+
+void Message(unsigned long i) {
+    char sz[100];
+    sprintf(sz, "%08X", i);
+    MessageBoxA(NULL, sz, "D", MB_OK);
+}

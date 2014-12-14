@@ -1,0 +1,8 @@
+stream parser.
+
+parse a tcas_unit byte stream instead of a file, return a new tcas_unit byte stream.
+
+if tcaxPy_Main is used, the returned tcas_unit byte stream may need to be converted back to Python list
+if tcaxPy_User is used, we can simply use function WriteTcasFile(TCAS_FILE, TCAS_BUF, parse=true) to eliminate the convertion
+
+

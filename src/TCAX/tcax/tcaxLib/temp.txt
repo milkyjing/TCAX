@@ -1,0 +1,187 @@
+
+extern const TCAX_pPix tcaxlib_resample_pix_2(const TCAX_pPix pPixSrc, double dstWidth, double dstHeight, TCAX_pPix pPixDst);
+
+const TCAX_pPix tcaxlib_resample_pix_2(const TCAX_pPix pPixSrc, double dstWidth, double dstHeight, TCAX_pPix pPixDst) {
+    TCAX_Pix tempPix;
+    unsigned char *buf1, *buf2, *buf3;
+    int w, h, index, tempPitch, dstPitch, tempOffset, dstOffset;
+    double u_r, v_r, u_o, v_o;
+    if (0 == dstWidth) dstWidth = dstHeight * pPixSrc->width / pPixSrc->height;    /* keep aspect ratio */
+    else if (0 == dstHeight) dstHeight = dstWidth * pPixSrc->height / pPixSrc->width;    /* keep aspect ratio */
+    pPixDst->initX = pPixSrc->initX * pPixDst->width / pPixSrc->width;
+    pPixDst->initY = pPixSrc->initY * pPixDst->height / pPixSrc->height;
+    pPixDst->width = (int)dstWidth + 1;
+    pPixDst->height = (int)dstHeight + 1;
+    dstPitch = pPixDst->width << 2;
+    pPixDst->size = pPixDst->height * dstPitch;
+    u_o = pPixDst->width - dstWidth;
+    u_r = 1 - u_o;
+    v_o = pPixDst->height - dstHeight;
+    v_r = 1 - v_r;
+    /* buf1 */
+    tempPix.width = (int)dstWidth;
+    tempPix.height = (int)dstHeight;
+    tempPitch = tempPix.width << 2;
+    tempPix.size = tempPix.height * tempPitch;
+    tempPix.buf = (unsigned char *)malloc(tempPix.size * sizeof(unsigned char));
+    _tcaxlib_resample_rgba(pPixSrc->buf, pPixSrc->width, pPixSrc->height, tempPix.buf, tempPix.width, tempPix.height);
+    buf1 = (unsigned char *)malloc(pPixDst->size * sizeof(unsigned char));
+    for (h = 0, tempOffset = 0, dstOffset = 0; h < tempPix.height; h++, tempOffset += tempPitch, dstOffset += dstPitch) {
+        memcpy(buf1 + dstOffset, tempPix.buf + tempOffset, tempPitch * sizeof(unsigned char));
+        memset(buf1 + dstOffset + tempPitch, 0, 4 * sizeof(unsigned char));
+    }
+    free(tempPix.buf);
+    memset(buf1 + dstOffset, 0, dstPitch * sizeof(unsigned char));
+    /* buf2 */
+    tempPix.width = (int)dstWidth + 1;    /* equal to pPixDst->width */
+    tempPix.height = (int)dstHeight;
+    tempPitch = tempPix.width << 2;    /* equal to dstPitch */
+    tempPix.size = tempPix.height * tempPitch;
+    tempPix.buf = (unsigned char *)malloc(tempPix.size * sizeof(unsigned char));
+    _tcaxlib_resample_rgba(pPixSrc->buf, pPixSrc->width, pPixSrc->height, tempPix.buf, tempPix.width, tempPix.height);
+    buf2 = (unsigned char *)malloc(pPixDst->size * sizeof(unsigned char));
+    memcpy(buf2, tempPix.buf, tempPix.size * sizeof(unsigned char));
+    free(tempPix.buf);
+    memset(buf2 + tempPix.size , 0, dstPitch * sizeof(unsigned char));
+    /* buf3 */
+    tempPix.width = (int)dstWidth;
+    tempPix.height = (int)dstHeight + 1;    /* equal to pPixDst->height */
+    tempPitch = tempPix.width << 2;
+    tempPix.size = tempPix.height * tempPitch;
+    tempPix.buf = (unsigned char *)malloc(tempPix.size * sizeof(unsigned char));
+    _tcaxlib_resample_rgba(pPixSrc->buf, pPixSrc->width, pPixSrc->height, tempPix.buf, tempPix.width, tempPix.height);
+    buf3 = (unsigned char *)malloc(pPixDst->size * sizeof(unsigned char));
+    for (h = 0, tempOffset = 0, dstOffset = 0; h < tempPix.height; h++, tempOffset += tempPitch, dstOffset += dstPitch) {
+        memcpy(buf3 + dstOffset, tempPix.buf + tempOffset, tempPitch * sizeof(unsigned char));
+        memset(buf3 + dstOffset + tempPitch, 0, 4 * sizeof(unsigned char));
+    }
+    free(tempPix.buf);
+    /* buf4 */
+    pPixDst->buf = (unsigned char *)malloc(pPixDst->size * sizeof(unsigned char));
+    _tcaxlib_resample_rgba(pPixSrc->buf, pPixSrc->width, pPixSrc->height, pPixDst->buf, pPixDst->width, pPixDst->height);
+    for (h = 0; h < pPixDst->height; h++) {
+        for (w = 0, index = 0; w < pPixDst->width; w++, index += 4) {
+            pPixDst->buf[index]     = CLIP_0_255((int)((buf1[index]     * u_o + buf2[index]     * u_r) * v_o + (buf3[index]     * u_o + pPixDst->buf[index]     * u_r) * v_r));
+            pPixDst->buf[index + 1] = CLIP_0_255((int)((buf1[index + 1] * u_o + buf2[index + 1] * u_r) * v_o + (buf3[index + 1] * u_o + pPixDst->buf[index + 1] * u_r) * v_r));
+            pPixDst->buf[index + 2] = CLIP_0_255((int)((buf1[index + 2] * u_o + buf2[index + 2] * u_r) * v_o + (buf3[index + 2] * u_o + pPixDst->buf[index + 2] * u_r) * v_r));
+            pPixDst->buf[index + 3] = CLIP_0_255((int)((buf1[index + 3] * u_o + buf2[index + 3] * u_r) * v_o + (buf3[index + 3] * u_o + pPixDst->buf[index + 3] * u_r) * v_r));
+        }
+    }
+    free(buf1);
+    free(buf2);
+    free(buf3);
+    return (const TCAX_pPix)pPixDst;
+}
+
+
+
+
+    printf("n_contours = %i\nn_points = %i\n\n", outline->outline.n_contours, outline->outline.n_points);
+    for (i = 0; i < outline->outline.n_points; i++) {
+        printf("%02i point (%i, %i)\n", i + 1, outline->outline.points[i].x, outline->outline.points[i].y);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PyObject *tcaxlib_calc_tt_font_size(PyObject *self, PyObject *args) {
+    PyObject *pyArg1, *pyArg2, *pyArg3;
+    const wchar_t *fontFilename;
+    int fontFaceID;
+    int fontSize;
+    char *filename;
+    FT_Library library;
+    FT_Face face;
+    TT_HoriHeader *hori;
+    TT_OS2 *os2;
+    double scale;
+    if (PyTuple_GET_SIZE(args) < 3) {
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, too less parameters - `(font_file, face_id, font_size)'\n");
+        return NULL;
+    }
+    pyArg1 = PyTuple_GET_ITEM(args, 0);
+    if (!PyUnicode_Check(pyArg1)) {
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, the 1st param should be a unicode string - `font_file'\n");
+        return NULL;
+    }
+    pyArg2 = PyTuple_GET_ITEM(args, 1);
+    if (!PyLong_Check(pyArg2)) {
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, the 2nd param should be an integer - `face_id'\n");
+        return NULL;
+    }
+    pyArg3 = PyTuple_GET_ITEM(args, 2);
+    if (!PyLong_Check(pyArg3) && !PyFloat_Check(pyArg3)) {
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, the 3rd param should be an integer - `font_size'\n");
+        return NULL;
+    }
+    fontFilename = (const wchar_t *)PyUnicode_AsUnicode(pyArg1);
+    fontFaceID = (int)PyLong_AsLong(pyArg2);
+    fontSize = (int)PyLong_AsLong(pyArg3);
+    _tcaxlib_sz_unicode_to_ansi(fontFilename, &filename);
+    if (FT_Init_FreeType(&library) != 0) {
+        free(filename);
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, failed to initialize the font.\n");
+        return NULL;
+    }
+    if (FT_New_Face(library, filename, fontFaceID, &face) != 0) {
+        free(filename);
+        FT_Done_FreeType(library);
+        PyErr_SetString(PyExc_RuntimeError, "CalcFontSize error, failed to initialize the font.\n");
+        return NULL;
+    }
+    free(filename);
+    hori = (TT_HoriHeader *)FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
+    os2 = (TT_OS2 *)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+    scale = 1;
+    /* VSFilter uses metrics from TrueType OS/2 table, The idea was borrowed from libass */
+    if (hori && os2) {
+        int hori_height;
+        int os2_height;
+        hori_height = hori->Ascender - hori->Descender;
+        os2_height = os2->usWinAscent + os2->usWinDescent;
+        if (hori_height && os2_height)
+            scale = hori_height / (double)os2_height;
+    }
+    rq.type = FT_SIZE_REQUEST_TYPE_REAL_DIM;
+    rq.width = 0;
+    rq.height = (long)(size * scale * 64);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

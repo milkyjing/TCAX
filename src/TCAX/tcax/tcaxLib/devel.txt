@@ -1,0 +1,4 @@
+﻿Keyframing technique:
+
+keyframing can be used to show changes in object geometry and changes in colour as well as movement
+

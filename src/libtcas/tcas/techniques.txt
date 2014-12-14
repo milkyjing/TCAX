@@ -1,0 +1,42 @@
+Core Techniques
+
+
+Ordered Index
+ordered by chunk layer and offset of the chunk in the file, use a separate ID to indicate the order
+
+Index Linearization
+linearize the ordered index to separate linear index streams
+
+Chunk Lookup and Chunk Cache
+find all the effective chunks concerning frame n, and cache them, for they may still be effective to the next frame
+
+Key Framing
+generating of inter-mediate frames according to a key frame pair
+
+Zlib Compression
+use zlib to compress the pos_and_color of compressed chunks
+
+
+
+Utility Techniques
+
+
+File Cache
+cache a piece of the file to speed up the I/O
+
+Frame Cache
+cache a sequence of generated TCAS frames to improve the overall performance
+
+
+
+Obsolete Techniques
+
+
+Threadpooling
+use a threadpool to generate TCAS frames in parallels
+
+Mapping of File
+map the whole file into memory
+
+
+

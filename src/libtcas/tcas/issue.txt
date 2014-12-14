@@ -1,0 +1,28 @@
+performance issues:
+
+cache support
+
+
+file I/O issues (which is related to the performance, the small the file is, the less time it spent on I/O):
+
+to a compressed TCAS chunk, its pos_and_color can be compressed again by using zlib, which can save about a half of the disc space.
+
+three things should be updated:
+
+1. the header (flag of the TCAS file)
+2. libtcas_read_specified_chunk, which should support reading of compressed pos_and_color
+3. when writing, compression support should be added, related functions:
+    a) libtcas_compress_raw_chunks, this function is to compress raw chunks to compressed chunks
+   *b) a new function should be added, libtcas_compress_pos_and_color, which receives a stream created by the libtcas_compress_raw_chunks function, and returns a new stream
+    c) libtcas_write, this function is to write the compressed chunks with compressed pos_and_color to the file.
+
+the new set of APIs will be contained in the file hla_z_comp.c and hla_z_comp.h
+
+
+
+vector_quicksort stack overflow issue
+
+the vector_quicksort method may occupy more memory than the default reserved stack, so we can change the stack size reserved through
+
+Project -> Properties -> Configuration Properties -> Linker -> System -> Stack Reserve Size
+

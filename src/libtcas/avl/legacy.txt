@@ -1,0 +1,169 @@
+
+/* Deletes from |tree| and returns an item matching |item|.
+   Returns a null pointer if no matching item found. */
+void *
+avl_delete (struct avl_table *tree, const void *item)
+{
+  /* Stack of nodes. */
+  struct avl_node *pa[AVL_MAX_HEIGHT]; /* Nodes. */
+  unsigned char da[AVL_MAX_HEIGHT];    /* |avl_link[]| indexes. */
+  int k;                               /* Stack pointer. */
+
+  struct avl_node *p;   /* Traverses tree to find node to delete. */
+  int cmp;              /* Result of comparison between |item| and |p|. */
+
+  assert (tree != NULL && item != NULL);
+
+  k = 0;
+  p = (struct avl_node *) &tree->root;
+  for (cmp = -1; cmp != 0;
+       cmp = tree->compare_f (item, p->data, tree->avl_param))
+    {
+      int dir = cmp > 0;
+
+      pa[k] = p;
+      da[k++] = dir;
+
+      p = p->link[dir];
+      if (p == NULL)
+        return NULL;
+    }
+  item = p->data;
+
+  if (p->link[1] == NULL)
+    pa[k - 1]->link[da[k - 1]] = p->link[0];
+  else
+    {
+      struct avl_node *r = p->link[1];
+      if (r->link[0] == NULL)
+        {
+          r->link[0] = p->link[0];
+          rbalance = pbalance;
+          pa[k - 1]->link[da[k - 1]] = r;
+          da[k] = 1;
+          pa[k++] = r;
+        }
+      else
+        {
+          struct avl_node *s;
+          int j = k++;
+
+          for (;;)
+            {
+              da[k] = 0;
+              pa[k++] = r;
+              s = r->link[0];
+              if (s->link[0] == NULL)
+                break;
+
+              r = s;
+            }
+
+          s->link[0] = p->link[0];
+          r->link[0] = s->link[1];
+          s->link[1] = p->link[1];
+          sbalance = pbalance;
+
+          pa[j - 1]->link[da[j - 1]] = s;
+          da[j] = 1;
+          pa[j] = s;
+        }
+    }
+
+  tree->avl_alloc->avltree_free (tree->avl_alloc, p);
+
+  assert (k > 0);
+  while (--k > 0)
+    {
+      struct avl_node *y = pa[k];
+
+      if (da[k] == 0)
+        {
+          ybalance++;
+          if (ybalance == +1)
+            break;
+          else if (ybalance == +2)
+            {
+              struct avl_node *x = y->link[1];
+              if (xbalance == -1)
+                {
+                  struct avl_node *w;
+                  assert (xbalance == -1);
+                  w = x->link[0];
+                  x->link[0] = w->link[1];
+                  w->link[1] = x;
+                  y->link[1] = w->link[0];
+                  w->link[0] = y;
+                  if (wbalance == +1)
+                    xbalance = 0, ybalance = -1;
+                  else if (wbalance == 0)
+                    xbalance = ybalance = 0;
+                  else /* |wbalance == -1| */
+                    xbalance = +1, ybalance = 0;
+                  wbalance = 0;
+                  pa[k - 1]->link[da[k - 1]] = w;
+                }
+              else
+                {
+                  y->link[1] = x->link[0];
+                  x->link[0] = y;
+                  pa[k - 1]->link[da[k - 1]] = x;
+                  if (xbalance == 0)
+                    {
+                      xbalance = -1;
+                      ybalance = +1;
+                      break;
+                    }
+                  else
+                    xbalance = ybalance = 0;
+                }
+            }
+        }
+      else
+        {
+          ybalance--;
+          if (ybalance == -1)
+            break;
+          else if (ybalance == -2)
+            {
+              struct avl_node *x = y->link[0];
+              if (xbalance == +1)
+                {
+                  struct avl_node *w;
+                  assert (xbalance == +1);
+                  w = x->link[1];
+                  x->link[1] = w->link[0];
+                  w->link[0] = x;
+                  y->link[0] = w->link[1];
+                  w->link[1] = y;
+                  if (wbalance == -1)
+                    xbalance = 0, ybalance = +1;
+                  else if (wbalance == 0)
+                    xbalance = ybalance = 0;
+                  else /* |wbalance == +1| */
+                    xbalance = -1, ybalance = 0;
+                  wbalance = 0;
+                  pa[k - 1]->link[da[k - 1]] = w;
+                }
+              else
+                {
+                  y->link[0] = x->link[1];
+                  x->link[1] = y;
+                  pa[k - 1]->link[da[k - 1]] = x;
+                  if (xbalance == 0)
+                    {
+                      xbalance = +1;
+                      ybalance = -1;
+                      break;
+                    }
+                  else
+                    xbalance = ybalance = 0;
+                }
+            }
+        }
+    }
+
+  tree->count--;
+  tree->generation++;
+  return (void *) item;
+}

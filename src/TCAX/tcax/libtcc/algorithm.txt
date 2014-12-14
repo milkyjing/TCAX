@@ -1,0 +1,17 @@
+﻿tcc.h:
+
+define a struct TCC_Attributes
+
+contain configuration information for TCX FX
+
+and libtcc_parse_tcc_string() convert TCC string to TCC Attributes
+
+tcc.c (implementation)
+
+first convert TCC file to TCC string, then parse the TCC string to a Map (string, string)
+
+then convert map to TCC Attributes.
+
+
+in TCC Attributes: py file may be a two dimentional variable.
+

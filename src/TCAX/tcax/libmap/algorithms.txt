@@ -1,0 +1,10 @@
+How to parse a comprehensive tcc map file into a tcc map memory object?
+
+there are several steps.
+
+1. read the file into memory (encoded in utf-8)
+
+2. parse the string from the beginning to the end:
+    a) add valid key value pairs to the map
+    b) skip invalid elements
+
