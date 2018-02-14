@@ -39,22 +39,22 @@
     <ClCompile Include="libsyl\syl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\tcas.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\vector.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="libmap\strmap.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="libmap\tccmap.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\hla_z_comp.c">
+    <ClCompile Include="..\..\libtcas\tcas\hla_z_comp.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\rb.c">
+    <ClCompile Include="..\..\libtcas\tcas\rb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libtcas\tcas\tcas.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libtcas\tcas\vector.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,25 +80,25 @@
     <ClInclude Include="tcaxPy\py.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\tcas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="libmap\strmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libmap\tccmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\hla_z_comp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\rb.h">
+    <ClInclude Include="..\..\libtcas\tcas\hla_z_comp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libtcas\tcas\tcas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libtcas\tcas\vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libtcas\tcas\rb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

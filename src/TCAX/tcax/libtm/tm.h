@@ -23,12 +23,12 @@
 #pragma once
 
 #include "../libsyl/syl.h"
-#include "./FreeType/ft2build.h"
+#include "../FreeType/ft2build.h"
 #include FT_FREETYPE_H
 #include FT_SFNT_NAMES_H
 #include FT_TRUETYPE_TABLES_H
 #include FT_TRUETYPE_IDS_H
-#pragma comment(lib, "./FreeType/freetype248.lib")
+#pragma comment(lib, "./FreeType/freetype29.lib")
 
 #define LIBTM_VERSION 0x00006000    /**< High word of LIBTM_VERSION indicates major libtm version, and low word indicates minor version */
 #define LIBTM_VER_STR L"0.6"
