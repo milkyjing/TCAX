@@ -89,8 +89,10 @@ int main(int argc, char *argv[]) {
         } else if (TCAX_CMD_PARSE_TCC == tcaxCmd) {
             do {
                 printf("Please enter the TCC filename: ");
-                gets(szFilename);
+                fgets(szFilename, sizeof(szFilename), stdin);
                 len = strlen(szFilename);
+                szFilename[len - 1] = '\0';
+                len--;
             }
             while (!(len > 4 && __str_ignore_case_cmp(szFilename + len - 4, ".tcc") == 0));
             executionTime = GetTickCount();
@@ -107,8 +109,10 @@ int main(int argc, char *argv[]) {
         } else if (TCAX_CMD_DEFAULT_PY == tcaxCmd) {
             do {
                 printf("Please enter the tcaxPy script filename: ");
-                gets(szFilename);
+                fgets(szFilename, sizeof(szFilename), stdin);
                 len = strlen(szFilename);
+                szFilename[len - 1] = '\0';
+                len--;
             }
             while (!(len > 3 && __str_ignore_case_cmp(szFilename + len - 3, ".py") == 0));
             if (tcaxpy_create_py_template(szFilename) != tcc_error_success)
@@ -118,8 +122,10 @@ int main(int argc, char *argv[]) {
         } else if (TCAX_CMD_DEFAULT_TCC == tcaxCmd) {
             do {
                 printf("Please enter the TCC filename: ");
-                gets(szFilename);
+                fgets(szFilename, sizeof(szFilename), stdin);
                 len = strlen(szFilename);
+                szFilename[len - 1] = '\0';
+                len--;
             }
             while (!(len > 4 && __str_ignore_case_cmp(szFilename + len - 4, ".tcc") == 0));
             if (libtcc_create_default_tcc_file(szFilename) != tcc_error_success)
@@ -129,8 +135,10 @@ int main(int argc, char *argv[]) {
         } else if (TCAX_CMD_EXEC_PY == tcaxCmd) {
             do {
                 printf("Please enter the PY filename: ");
-                gets(szFilename);
+                fgets(szFilename, sizeof(szFilename), stdin);
                 len = strlen(szFilename);
+                szFilename[len - 1] = '\0';
+                len--;
             }
             while (!(len > 3 && __str_ignore_case_cmp(szFilename + len - 3, ".py") == 0));
             if (tcaxpy_exec_py_script(szFilename) != tcc_error_success)

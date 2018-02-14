@@ -1,0 +1,19 @@
+﻿  hla_z_comp.c
+  rb.c
+  tcas.c
+  vector.c
+  strmap.c
+  tccmap.c
+  syl.c
+  map.c
+  string.c
+  tcc.c
+  tm.c
+  tcax.c
+  py.c
+  tcax_cmd.c
+     Creating library D:\RH\TCAX\src\TCAX\tcax\Release\tcax.lib and object D:\RH\TCAX\src\TCAX\tcax\Release\tcax.exp
+  Generating code
+  All 165 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  tcax.vcxproj -> D:\RH\TCAX\src\TCAX\tcax\Release\tcax.exe

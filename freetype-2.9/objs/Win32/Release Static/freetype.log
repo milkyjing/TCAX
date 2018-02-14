@@ -1,0 +1,449 @@
+﻿  autofit.c
+  ftbase.c
+  ftbbox.c
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afblue.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+..\..\..\src\base\ftbbox.c(443): warning C4273: 'FT_Outline_Get_BBox': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbbox.h(85): note: see previous definition of 'FT_Outline_Get_BBox' (compiling source file ..\..\..\src\base\ftbbox.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afblue.c(252): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\base\ftadvanc.c(79): warning C4273: 'FT_Get_Advance': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftadvanc.h(122): note: see previous definition of 'FT_Get_Advance' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftadvanc.c(118): warning C4273: 'FT_Get_Advances': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftadvanc.h(173): note: see previous definition of 'FT_Get_Advances' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(89): warning C4273: 'FT_RoundFix': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4438): note: see previous definition of 'FT_RoundFix' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(98): warning C4273: 'FT_CeilFix': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4459): note: see previous definition of 'FT_CeilFix' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(107): warning C4273: 'FT_FloorFix': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4477): note: see previous definition of 'FT_FloorFix' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(419): warning C4273: 'FT_MulDiv': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4358): note: see previous definition of 'FT_MulDiv' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(511): warning C4273: 'FT_MulFix': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4393): note: see previous definition of 'FT_MulFix' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(610): warning C4273: 'FT_DivFix': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4415): note: see previous definition of 'FT_DivFix' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(663): warning C4273: 'FT_Matrix_Multiply': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftglyph.h(579): note: see previous definition of 'FT_Matrix_Multiply' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftcalc.c(690): warning C4273: 'FT_Matrix_Invert': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftglyph.h(599): note: see previous definition of 'FT_Matrix_Invert' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+  ftbdf.c
+d:\rh\tcax\freetype-2.9\src\autofit\afscript.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\autofit\autofit.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(656): warning C4273: 'FT_Set_Transform': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3168): note: see previous definition of 'FT_Set_Transform' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(763): warning C4273: 'FT_Load_Glyph': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2798): note: see previous definition of 'FT_Load_Glyph' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(1040): warning C4273: 'FT_Load_Char': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2837): note: see previous definition of 'FT_Load_Char' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(1410): warning C4273: 'FT_New_Face': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2178): note: see previous definition of 'FT_New_Face' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(1436): warning C4273: 'FT_New_Memory_Face': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2215): note: see previous definition of 'FT_New_Memory_Face' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2321): warning C4273: 'FT_Open_Face': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2364): note: see previous definition of 'FT_Open_Face' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2643): warning C4273: 'FT_Attach_File': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2388): note: see previous definition of 'FT_Attach_File' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2665): warning C4273: 'FT_Attach_Stream': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2423): note: see previous definition of 'FT_Attach_Stream' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2708): warning C4273: 'FT_Reference_Face': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2451): note: see previous definition of 'FT_Reference_Face' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2722): warning C4273: 'FT_Done_Face': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2474): note: see previous definition of 'FT_Done_Face' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2764): warning C4273: 'FT_New_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsizes.h(100): note: see previous definition of 'FT_New_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(2828): warning C4273: 'FT_Done_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsizes.h(121): note: see previous definition of 'FT_Done_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3140): warning C4273: 'FT_Select_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2513): note: see previous definition of 'FT_Select_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3194): warning C4273: 'FT_Request_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2675): note: see previous definition of 'FT_Request_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3272): warning C4273: 'FT_Set_Char_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2719): note: see previous definition of 'FT_Set_Char_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3312): warning C4273: 'FT_Set_Pixel_Sizes': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(2753): note: see previous definition of 'FT_Set_Pixel_Sizes' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3352): warning C4273: 'FT_Get_Kerning': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3442): note: see previous definition of 'FT_Get_Kerning' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3430): warning C4273: 'FT_Get_Track_Kerning': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3483): note: see previous definition of 'FT_Get_Track_Kerning' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3459): warning C4273: 'FT_Select_Charmap': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3601): note: see previous definition of 'FT_Select_Charmap' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3501): warning C4273: 'FT_Set_Charmap': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3631): note: see previous definition of 'FT_Set_Charmap' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3535): warning C4273: 'FT_Get_Charmap_Index': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3653): note: see previous definition of 'FT_Get_Charmap_Index' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3670): warning C4273: 'FT_Get_Char_Index': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3687): note: see previous definition of 'FT_Get_Char_Index' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3699): warning C4273: 'FT_Get_First_Char': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3741): note: see previous definition of 'FT_Get_First_Char' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3725): warning C4273: 'FT_Get_Next_Char': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3776): note: see previous definition of 'FT_Get_Next_Char' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3758): warning C4273: 'FT_Face_Properties': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3875): note: see previous definition of 'FT_Face_Properties' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3837): warning C4273: 'FT_Face_GetCharVariantIndex': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4166): note: see previous definition of 'FT_Face_GetCharVariantIndex' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3883): warning C4273: 'FT_Face_GetCharVariantIsDefault': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4202): note: see previous definition of 'FT_Face_GetCharVariantIsDefault' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3924): warning C4273: 'FT_Face_GetVariantSelectors': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4233): note: see previous definition of 'FT_Face_GetVariantSelectors' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3952): warning C4273: 'FT_Face_GetVariantsOfChar': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4266): note: see previous definition of 'FT_Face_GetVariantsOfChar' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(3986): warning C4273: 'FT_Face_GetCharsOfVariant': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4300): note: see previous definition of 'FT_Face_GetCharsOfVariant' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4021): warning C4273: 'FT_Get_Name_Index': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3897): note: see previous definition of 'FT_Get_Name_Index' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4051): warning C4273: 'FT_Get_Glyph_Name': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3529): note: see previous definition of 'FT_Get_Glyph_Name' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4085): warning C4273: 'FT_Get_Postscript_Name': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3569): note: see previous definition of 'FT_Get_Postscript_Name' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4115): warning C4273: 'FT_Get_Sfnt_Table': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/tttables.h(677): note: see previous definition of 'FT_Get_Sfnt_Table' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4139): warning C4273: 'FT_Load_Sfnt_Table': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/tttables.h(746): note: see previous definition of 'FT_Load_Sfnt_Table' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4161): warning C4273: 'FT_Sfnt_Table_Info': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/tttables.h(789): note: see previous definition of 'FT_Sfnt_Table_Info' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4183): warning C4273: 'FT_Get_CMap_Language_ID': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/tttables.h(816): note: see previous definition of 'FT_Get_CMap_Language_ID' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4207): warning C4273: 'FT_Get_CMap_Format': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/tttables.h(836): note: see previous definition of 'FT_Get_CMap_Format' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4231): warning C4273: 'FT_Activate_Size': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsizes.h(149): note: see previous definition of 'FT_Activate_Size' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4418): warning C4273: 'FT_Get_Renderer': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftrender.h(185): note: see previous definition of 'FT_Get_Renderer' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4432): warning C4273: 'FT_Set_Renderer': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftrender.h(220): note: see previous definition of 'FT_Set_Renderer' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4652): warning C4273: 'FT_Render_Glyph': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3355): note: see previous definition of 'FT_Render_Glyph' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4726): warning C4273: 'FT_Add_Module': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(256): note: see previous definition of 'FT_Add_Module' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4839): warning C4273: 'FT_Get_Module': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(281): note: see previous definition of 'FT_Get_Module' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(4929): warning C4273: 'FT_Remove_Module': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(306): note: see previous definition of 'FT_Remove_Module' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5059): warning C4273: 'FT_Property_Set': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(370): note: see previous definition of 'FT_Property_Set' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5076): warning C4273: 'FT_Property_Get': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(433): note: see previous definition of 'FT_Property_Get' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5125): warning C4273: 'FT_Reference_Library': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(507): note: see previous definition of 'FT_Reference_Library' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5140): warning C4273: 'FT_New_Library': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(544): note: see previous definition of 'FT_New_Library' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5193): warning C4273: 'FT_Library_Version': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4588): note: see previous definition of 'FT_Library_Version' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5221): warning C4273: 'FT_Done_Library': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(568): note: see previous definition of 'FT_Done_Library' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5331): warning C4273: 'FT_Set_Debug_Hook': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(604): note: see previous definition of 'FT_Set_Debug_Hook' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5343): warning C4273: 'FT_Get_TrueType_Engine_Type': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftmodapi.h(701): note: see previous definition of 'FT_Get_TrueType_Engine_Type' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftobjs.c(5380): warning C4273: 'FT_Get_SubGlyph_Info': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(3975): note: see previous definition of 'FT_Get_SubGlyph_Info' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(54): warning C4273: 'FT_Outline_Decompose': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(123): note: see previous definition of 'FT_Outline_Decompose' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(303): warning C4273: 'FT_Outline_New_Internal': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(166): note: see previous definition of 'FT_Outline_New_Internal' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(345): warning C4273: 'FT_Outline_New': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(159): note: see previous definition of 'FT_Outline_New' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(358): warning C4273: 'FT_Outline_Check': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(222): note: see previous definition of 'FT_Outline_Check' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(404): warning C4273: 'FT_Outline_Copy': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(298): note: see previous definition of 'FT_Outline_Copy' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(441): warning C4273: 'FT_Outline_Done_Internal': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(199): note: see previous definition of 'FT_Outline_Done_Internal' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(465): warning C4273: 'FT_Outline_Done': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(194): note: see previous definition of 'FT_Outline_Done' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(480): warning C4273: 'FT_Outline_Get_CBox': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(252): note: see previous definition of 'FT_Outline_Get_CBox' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(531): warning C4273: 'FT_Outline_Translate': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(273): note: see previous definition of 'FT_Outline_Translate' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(554): warning C4273: 'FT_Outline_Reverse': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(414): note: see previous definition of 'FT_Outline_Reverse' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(617): warning C4273: 'FT_Outline_Render': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(491): note: see previous definition of 'FT_Outline_Render' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(664): warning C4273: 'FT_Outline_Get_Bitmap': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(449): note: see previous definition of 'FT_Outline_Get_Bitmap' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(690): warning C4273: 'FT_Vector_Transform': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/freetype.h(4498): note: see previous definition of 'FT_Vector_Transform' (compiling source file ..\..\..\src\base\ftbase.c)
+..\..\..\src\base\ftbdf.c(32): warning C4273: 'FT_Get_BDF_Charset_ID': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbdf.h(158): note: see previous definition of 'FT_Get_BDF_Charset_ID' (compiling source file ..\..\..\src\base\ftbdf.c)
+..\..\..\src\base\ftbdf.c(66): warning C4273: 'FT_Get_BDF_Property': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbdf.h(199): note: see previous definition of 'FT_Get_BDF_Property' (compiling source file ..\..\..\src\base\ftbdf.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(713): warning C4273: 'FT_Outline_Transform': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(322): note: see previous definition of 'FT_Outline_Transform' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(901): warning C4273: 'FT_Outline_Embolden': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(370): note: see previous definition of 'FT_Outline_Embolden' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(912): warning C4273: 'FT_Outline_EmboldenXY': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(389): note: see previous definition of 'FT_Outline_EmboldenXY' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftoutln.c(1045): warning C4273: 'FT_Outline_Get_Orientation': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftoutln.h(567): note: see previous definition of 'FT_Outline_Get_Orientation' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftsnames.c(37): warning C4273: 'FT_Get_Sfnt_Name_Count': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsnames.h(134): note: see previous definition of 'FT_Get_Sfnt_Name_Count' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftsnames.c(48): warning C4273: 'FT_Get_Sfnt_Name': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsnames.h(169): note: see previous definition of 'FT_Get_Sfnt_Name' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftsnames.c(99): warning C4273: 'FT_Get_Sfnt_LangTag': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftsnames.h(240): note: see previous definition of 'FT_Get_Sfnt_LangTag' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(299): warning C4273: 'FT_Cos': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(148): note: see previous definition of 'FT_Cos' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(313): warning C4273: 'FT_Sin': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(124): note: see previous definition of 'FT_Sin' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(327): warning C4273: 'FT_Tan': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(168): note: see previous definition of 'FT_Tan' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(342): warning C4273: 'FT_Atan2': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(192): note: see previous definition of 'FT_Atan2' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(363): warning C4273: 'FT_Vector_Unit': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(244): note: see previous definition of 'FT_Vector_Unit' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(388): warning C4273: 'FT_Vector_Rotate': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(266): note: see previous definition of 'FT_Vector_Rotate' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(427): warning C4273: 'FT_Vector_Length': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(288): note: see previous definition of 'FT_Vector_Length' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(466): warning C4273: 'FT_Vector_Polarize': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(312): note: see previous definition of 'FT_Vector_Polarize' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(496): warning C4273: 'FT_Vector_From_Polar': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(338): note: see previous definition of 'FT_Vector_From_Polar' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\fttrigon.c(512): warning C4273: 'FT_Angle_Diff': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/fttrigon.h(217): note: see previous definition of 'FT_Angle_Diff' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(246): warning C4273: 'FT_List_Find': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(94): note: see previous definition of 'FT_List_Find' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(271): warning C4273: 'FT_List_Add': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(111): note: see previous definition of 'FT_List_Add' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(297): warning C4273: 'FT_List_Insert': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(128): note: see previous definition of 'FT_List_Insert' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(323): warning C4273: 'FT_List_Remove': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(148): note: see previous definition of 'FT_List_Remove' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(350): warning C4273: 'FT_List_Up': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(166): note: see previous definition of 'FT_List_Up' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(384): warning C4273: 'FT_List_Iterate': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(210): note: see previous definition of 'FT_List_Iterate' (compiling source file ..\..\..\src\base\ftbase.c)
+d:\rh\tcax\freetype-2.9\src\base\ftutil.c(417): warning C4273: 'FT_List_Finalize': inconsistent dll linkage (compiling source file ..\..\..\src\base\ftbase.c)
+  ..\..\..\include\freetype/ftlist.h(263): note: see previous definition of 'FT_List_Finalize' (compiling source file ..\..\..\src\base\ftbase.c)
+  ftbitmap.c
+..\..\..\src\base\ftbitmap.c(35): warning C4273: 'FT_Bitmap_Init': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(70): note: see previous definition of 'FT_Bitmap_Init' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(45): warning C4273: 'FT_Bitmap_New': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(75): note: see previous definition of 'FT_Bitmap_New' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(57): warning C4273: 'FT_Bitmap_Copy': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(98): note: see previous definition of 'FT_Bitmap_Copy' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(300): warning C4273: 'FT_Bitmap_Embolden': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(139): note: see previous definition of 'FT_Bitmap_Embolden' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(508): warning C4273: 'FT_Bitmap_Convert': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(179): note: see previous definition of 'FT_Bitmap_Convert' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(788): warning C4273: 'FT_GlyphSlot_Own_Bitmap': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(204): note: see previous definition of 'FT_GlyphSlot_Own_Bitmap' (compiling source file ..\..\..\src\base\ftbitmap.c)
+..\..\..\src\base\ftbitmap.c(814): warning C4273: 'FT_Bitmap_Done': inconsistent dll linkage
+  ..\..\..\include\freetype/ftbitmap.h(228): note: see previous definition of 'FT_Bitmap_Done' (compiling source file ..\..\..\src\base\ftbitmap.c)
+  ftcid.c
+..\..\..\src\base\ftcid.c(32): warning C4273: 'FT_Get_CID_Registry_Ordering_Supplement': inconsistent dll linkage
+  ..\..\..\include\freetype/ftcid.h(87): note: see previous definition of 'FT_Get_CID_Registry_Ordering_Supplement' (compiling source file ..\..\..\src\base\ftcid.c)
+..\..\..\src\base\ftcid.c(68): warning C4273: 'FT_Get_CID_Is_Internally_CID_Keyed': inconsistent dll linkage
+  ..\..\..\include\freetype/ftcid.h(122): note: see previous definition of 'FT_Get_CID_Is_Internally_CID_Keyed' (compiling source file ..\..\..\src\base\ftcid.c)
+..\..\..\src\base\ftcid.c(95): warning C4273: 'FT_Get_CID_From_Glyph_Index': inconsistent dll linkage
+  ..\..\..\include\freetype/ftcid.h(156): note: see previous definition of 'FT_Get_CID_From_Glyph_Index' (compiling source file ..\..\..\src\base\ftcid.c)
+  ftfntfmt.c
+  ftfstype.c
+..\..\..\src\base\ftfntfmt.c(29): warning C4273: 'FT_Get_Font_Format': inconsistent dll linkage
+  ..\..\..\include\freetype/ftfntfmt.h(79): note: see previous definition of 'FT_Get_Font_Format' (compiling source file ..\..\..\src\base\ftfntfmt.c)
+..\..\..\src\base\ftfntfmt.c(44): warning C4273: 'FT_Get_X11_Font_Format': inconsistent dll linkage
+  ..\..\..\include\freetype/ftfntfmt.h(84): note: see previous definition of 'FT_Get_X11_Font_Format' (compiling source file ..\..\..\src\base\ftfntfmt.c)
+  ftgasp.c
+..\..\..\src\base\ftfstype.c(29): warning C4273: 'FT_Get_FSType_Flags': inconsistent dll linkage
+  ..\..\..\include\freetype/freetype.h(4068): note: see previous definition of 'FT_Get_FSType_Flags' (compiling source file ..\..\..\src\base\ftfstype.c)
+..\..\..\src\base\ftgasp.c(27): warning C4273: 'FT_Get_Gasp': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgasp.h(128): note: see previous definition of 'FT_Get_Gasp' (compiling source file ..\..\..\src\base\ftgasp.c)
+  ftglyph.c
+..\..\..\src\base\ftglyph.c(318): warning C4273: 'FT_Glyph_Copy': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(265): note: see previous definition of 'FT_Glyph_Copy' (compiling source file ..\..\..\src\base\ftglyph.c)
+..\..\..\src\base\ftglyph.c(365): warning C4273: 'FT_Get_Glyph': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(241): note: see previous definition of 'FT_Get_Glyph' (compiling source file ..\..\..\src\base\ftglyph.c)
+  ftgxval.c
+..\..\..\src\base\ftglyph.c(450): warning C4273: 'FT_Glyph_Transform': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(294): note: see previous definition of 'FT_Glyph_Transform' (compiling source file ..\..\..\src\base\ftglyph.c)
+..\..\..\src\base\ftglyph.c(483): warning C4273: 'FT_Glyph_Get_CBox': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(413): note: see previous definition of 'FT_Glyph_Get_CBox' (compiling source file ..\..\..\src\base\ftglyph.c)
+..\..\..\src\base\ftglyph.c(531): warning C4273: 'FT_Glyph_To_Bitmap': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(525): note: see previous definition of 'FT_Glyph_To_Bitmap' (compiling source file ..\..\..\src\base\ftglyph.c)
+..\..\..\src\base\ftglyph.c(634): warning C4273: 'FT_Done_Glyph': inconsistent dll linkage
+  ..\..\..\include\freetype/ftglyph.h(543): note: see previous definition of 'FT_Done_Glyph' (compiling source file ..\..\..\src\base\ftglyph.c)
+..\..\..\src\base\ftgxval.c(42): warning C4273: 'FT_TrueTypeGX_Validate': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgxval.h(226): note: see previous definition of 'FT_TrueTypeGX_Validate' (compiling source file ..\..\..\src\base\ftgxval.c)
+..\..\..\src\base\ftgxval.c(77): warning C4273: 'FT_TrueTypeGX_Free': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgxval.h(253): note: see previous definition of 'FT_TrueTypeGX_Free' (compiling source file ..\..\..\src\base\ftgxval.c)
+..\..\..\src\base\ftgxval.c(94): warning C4273: 'FT_ClassicKern_Validate': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgxval.h(320): note: see previous definition of 'FT_ClassicKern_Validate' (compiling source file ..\..\..\src\base\ftgxval.c)
+..\..\..\src\base\ftgxval.c(128): warning C4273: 'FT_ClassicKern_Free': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgxval.h(346): note: see previous definition of 'FT_ClassicKern_Free' (compiling source file ..\..\..\src\base\ftgxval.c)
+  ftinit.c
+  ftlcdfil.c
+  ftmm.c
+  ftotval.c
+..\..\..\src\base\ftinit.c(199): warning C4273: 'FT_Add_Default_Modules': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmodapi.h(623): note: see previous definition of 'FT_Add_Default_Modules' (compiling source file ..\..\..\src\base\ftinit.c)
+..\..\..\src\base\ftinit.c(237): warning C4273: 'FT_Set_Default_Properties': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmodapi.h(480): note: see previous definition of 'FT_Set_Default_Properties' (compiling source file ..\..\..\src\base\ftinit.c)
+..\..\..\src\base\ftlcdfil.c(362): warning C4273: 'FT_Library_SetLcdFilterWeights': inconsistent dll linkage
+  ..\..\..\include\freetype/ftlcdfil.h(280): note: see previous definition of 'FT_Library_SetLcdFilterWeights' (compiling source file ..\..\..\src\base\ftlcdfil.c)
+..\..\..\src\base\ftinit.c(321): warning C4273: 'FT_Init_FreeType': inconsistent dll linkage
+  ..\..\..\include\freetype/freetype.h(1987): note: see previous definition of 'FT_Init_FreeType' (compiling source file ..\..\..\src\base\ftinit.c)
+..\..\..\src\base\ftlcdfil.c(373): warning C4273: 'FT_Library_SetLcdFilter': inconsistent dll linkage
+  ..\..\..\include\freetype/ftlcdfil.h(242): note: see previous definition of 'FT_Library_SetLcdFilter' (compiling source file ..\..\..\src\base\ftlcdfil.c)
+..\..\..\src\base\ftinit.c(357): warning C4273: 'FT_Done_FreeType': inconsistent dll linkage
+  ..\..\..\include\freetype/freetype.h(2006): note: see previous definition of 'FT_Done_FreeType' (compiling source file ..\..\..\src\base\ftinit.c)
+..\..\..\src\base\ftmm.c(99): warning C4273: 'FT_Get_Multi_Master': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(269): note: see previous definition of 'FT_Get_Multi_Master' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(126): warning C4273: 'FT_Get_MM_Var': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(295): note: see previous definition of 'FT_Get_MM_Var' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(153): warning C4273: 'FT_Done_MM_Var': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(315): note: see previous definition of 'FT_Done_MM_Var' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(173): warning C4273: 'FT_Set_MM_Design_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(355): note: see previous definition of 'FT_Set_MM_Design_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(208): warning C4273: 'FT_Set_Var_Design_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(396): note: see previous definition of 'FT_Set_Var_Design_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(256): warning C4273: 'FT_Get_Var_Design_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(429): note: see previous definition of 'FT_Get_Var_Design_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(284): warning C4273: 'FT_Set_MM_Blend_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(474): note: see previous definition of 'FT_Set_MM_Blend_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(335): warning C4273: 'FT_Set_Var_Blend_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(522): note: see previous definition of 'FT_Set_Var_Blend_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(383): warning C4273: 'FT_Get_MM_Blend_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(508): note: see previous definition of 'FT_Get_MM_Blend_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(414): warning C4273: 'FT_Get_Var_Blend_Coordinates': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(539): note: see previous definition of 'FT_Get_Var_Blend_Coordinates' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(442): warning C4273: 'FT_Get_Var_Axis_Flags': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(589): note: see previous definition of 'FT_Get_Var_Axis_Flags' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftmm.c(465): warning C4273: 'FT_Set_Named_Instance': inconsistent dll linkage
+  ..\..\..\include\freetype/ftmm.h(627): note: see previous definition of 'FT_Set_Named_Instance' (compiling source file ..\..\..\src\base\ftmm.c)
+..\..\..\src\base\ftotval.c(36): warning C4273: 'FT_OpenType_Validate': inconsistent dll linkage
+  ..\..\..\include\freetype/ftotval.h(164): note: see previous definition of 'FT_OpenType_Validate' (compiling source file ..\..\..\src\base\ftotval.c)
+..\..\..\src\base\ftotval.c(78): warning C4273: 'FT_OpenType_Free': inconsistent dll linkage
+  ..\..\..\include\freetype/ftotval.h(193): note: see previous definition of 'FT_OpenType_Free' (compiling source file ..\..\..\src\base\ftotval.c)
+  ftpatent.c
+  ftpfr.c
+  ftstroke.c
+..\..\..\src\base\ftpfr.c(47): warning C4273: 'FT_Get_PFR_Metrics': inconsistent dll linkage
+  ..\..\..\include\freetype/ftpfr.h(90): note: see previous definition of 'FT_Get_PFR_Metrics' (compiling source file ..\..\..\src\base\ftpfr.c)
+..\..\..\src\base\ftpfr.c(103): warning C4273: 'FT_Get_PFR_Kerning': inconsistent dll linkage
+  ..\..\..\include\freetype/ftpfr.h(129): note: see previous definition of 'FT_Get_PFR_Kerning' (compiling source file ..\..\..\src\base\ftpfr.c)
+..\..\..\src\base\ftpfr.c(131): warning C4273: 'FT_Get_PFR_Advance': inconsistent dll linkage
+  ..\..\..\include\freetype/ftpfr.h(160): note: see previous definition of 'FT_Get_PFR_Advance' (compiling source file ..\..\..\src\base\ftpfr.c)
+  ftsynth.c
+..\..\..\src\base\ftstroke.c(42): warning C4273: 'FT_Outline_GetInsideBorder': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(234): note: see previous definition of 'FT_Outline_GetInsideBorder' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(55): warning C4273: 'FT_Outline_GetOutsideBorder': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(255): note: see previous definition of 'FT_Outline_GetOutsideBorder' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(802): warning C4273: 'FT_Stroker_New': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(278): note: see previous definition of 'FT_Stroker_New' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(838): warning C4273: 'FT_Stroker_Set': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(315): note: see previous definition of 'FT_Stroker_Set' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftpatent.c(32): warning C4273: 'FT_Face_CheckTrueTypePatents': inconsistent dll linkage
+  ..\..\..\include\freetype/freetype.h(4615): note: see previous definition of 'FT_Face_CheckTrueTypePatents' (compiling source file ..\..\..\src\base\ftpatent.c)
+..\..\..\src\base\ftstroke.c(863): warning C4273: 'FT_Stroker_Rewind': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(338): note: see previous definition of 'FT_Stroker_Rewind' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftpatent.c(44): warning C4273: 'FT_Face_SetUnpatentedHinting': inconsistent dll linkage
+  ..\..\..\include\freetype/freetype.h(4641): note: see previous definition of 'FT_Face_SetUnpatentedHinting' (compiling source file ..\..\..\src\base\ftpatent.c)
+..\..\..\src\base\ftstroke.c(876): warning C4273: 'FT_Stroker_Done': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(691): note: see previous definition of 'FT_Stroker_Done' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1298): warning C4273: 'FT_Stroker_LineTo': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(459): note: see previous definition of 'FT_Stroker_LineTo' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1375): warning C4273: 'FT_Stroker_ConicTo': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(490): note: see previous definition of 'FT_Stroker_ConicTo' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1577): warning C4273: 'FT_Stroker_CubicTo': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(525): note: see previous definition of 'FT_Stroker_CubicTo' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1792): warning C4273: 'FT_Stroker_BeginSubPath': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(406): note: see previous definition of 'FT_Stroker_BeginSubPath' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1892): warning C4273: 'FT_Stroker_EndSubPath': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(432): note: see previous definition of 'FT_Stroker_EndSubPath' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(1988): warning C4273: 'FT_Stroker_GetBorderCounts': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(571): note: see previous definition of 'FT_Stroker_GetBorderCounts' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2018): warning C4273: 'FT_Stroker_GetCounts': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(648): note: see previous definition of 'FT_Stroker_GetCounts' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2060): warning C4273: 'FT_Stroker_ExportBorder': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(617): note: see previous definition of 'FT_Stroker_ExportBorder' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2081): warning C4273: 'FT_Stroker_Export': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(674): note: see previous definition of 'FT_Stroker_Export' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2097): warning C4273: 'FT_Stroker_ParseOutline': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(375): note: see previous definition of 'FT_Stroker_ParseOutline' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2305): warning C4273: 'FT_Glyph_Stroke': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(726): note: see previous definition of 'FT_Glyph_Stroke' (compiling source file ..\..\..\src\base\ftstroke.c)
+..\..\..\src\base\ftstroke.c(2385): warning C4273: 'FT_Glyph_StrokeBorder': inconsistent dll linkage
+  ..\..\..\include\freetype/ftstroke.h(768): note: see previous definition of 'FT_Glyph_StrokeBorder' (compiling source file ..\..\..\src\base\ftstroke.c)
+  ftsystem.c
+  fttype1.c
+..\..\..\src\base\ftsynth.c(49): warning C4273: 'FT_GlyphSlot_Oblique': inconsistent dll linkage
+  ..\..\..\include\freetype/ftsynth.h(74): note: see previous definition of 'FT_GlyphSlot_Oblique' (compiling source file ..\..\..\src\base\ftsynth.c)
+..\..\..\src\base\ftsynth.c(91): warning C4273: 'FT_GlyphSlot_Embolden': inconsistent dll linkage
+  ..\..\..\include\freetype/ftsynth.h(70): note: see previous definition of 'FT_GlyphSlot_Embolden' (compiling source file ..\..\..\src\base\ftsynth.c)
+..\..\..\src\base\fttype1.c(31): warning C4273: 'FT_Get_PS_Font_Info': inconsistent dll linkage
+  ..\..\..\include\freetype/t1tables.h(504): note: see previous definition of 'FT_Get_PS_Font_Info' (compiling source file ..\..\..\src\base\fttype1.c)
+..\..\..\src\base\fttype1.c(57): warning C4273: 'FT_Has_PS_Glyph_Names': inconsistent dll linkage
+  ..\..\..\include\freetype/t1tables.h(471): note: see previous definition of 'FT_Has_PS_Glyph_Names' (compiling source file ..\..\..\src\base\fttype1.c)
+..\..\..\src\base\fttype1.c(79): warning C4273: 'FT_Get_PS_Font_Private': inconsistent dll linkage
+  ..\..\..\include\freetype/t1tables.h(537): note: see previous definition of 'FT_Get_PS_Font_Private' (compiling source file ..\..\..\src\base\fttype1.c)
+..\..\..\src\base\fttype1.c(109): warning C4273: 'FT_Get_PS_Font_Value': inconsistent dll linkage
+  ..\..\..\include\freetype/t1tables.h(757): note: see previous definition of 'FT_Get_PS_Font_Value' (compiling source file ..\..\..\src\base\fttype1.c)
+  ftwinfnt.c
+  bdf.c
+  ftcache.c
+..\..\..\src\base\ftwinfnt.c(31): warning C4273: 'FT_Get_WinFNT_Header': inconsistent dll linkage
+  ..\..\..\include\freetype/ftwinfnt.h(259): note: see previous definition of 'FT_Get_WinFNT_Header' (compiling source file ..\..\..\src\base\ftwinfnt.c)
+  cff.c
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(275): warning C4273: 'FTC_ImageCache_New': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(714): note: see previous definition of 'FTC_ImageCache_New' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(289): warning C4273: 'FTC_ImageCache_Lookup': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(761): note: see previous definition of 'FTC_ImageCache_Lookup' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(370): warning C4273: 'FTC_ImageCache_LookupScaler': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(817): note: see previous definition of 'FTC_ImageCache_LookupScaler' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(475): warning C4273: 'FTC_SBitCache_New': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(922): note: see previous definition of 'FTC_SBitCache_New' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(489): warning C4273: 'FTC_SBitCache_Lookup': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(972): note: see previous definition of 'FTC_SBitCache_Lookup' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcbasic.c(572): warning C4273: 'FTC_SBitCache_LookupScaler': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(1027): note: see previous definition of 'FTC_SBitCache_LookupScaler' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftccmap.c(221): warning C4273: 'FTC_CMapCache_New': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(581): note: see previous definition of 'FTC_CMapCache_New' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftccmap.c(235): warning C4273: 'FTC_CMapCache_Lookup': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(613): note: see previous definition of 'FTC_CMapCache_Lookup' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(186): warning C4273: 'FTC_Manager_LookupSize': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(486): note: see previous definition of 'FTC_Manager_LookupSize' (compiling source file ..\..\..\src\cache\ftcache.c)
+  type1cid.c
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(313): warning C4273: 'FTC_Manager_LookupFace': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(389): note: see previous definition of 'FTC_Manager_LookupFace' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(362): warning C4273: 'FTC_Manager_New': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(308): note: see previous definition of 'FTC_Manager_New' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(418): warning C4273: 'FTC_Manager_Done': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(345): note: see previous definition of 'FTC_Manager_Done' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(458): warning C4273: 'FTC_Manager_Reset': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(330): note: see previous definition of 'FTC_Manager_Reset' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(672): warning C4273: 'FTC_Manager_RemoveFaceID': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(539): note: see previous definition of 'FTC_Manager_RemoveFaceID' (compiling source file ..\..\..\src\cache\ftcache.c)
+d:\rh\tcax\freetype-2.9\src\cache\ftcmanag.c(696): warning C4273: 'FTC_Node_Unref': inconsistent dll linkage (compiling source file ..\..\..\src\cache\ftcache.c)
+  ..\..\..\include\freetype/ftcache.h(507): note: see previous definition of 'FTC_Node_Unref' (compiling source file ..\..\..\src\cache\ftcache.c)
+  ftgzip.c
+  ftlzw.c
+  pcf.c
+..\..\..\src\lzw\ftlzw.c(349): warning C4273: 'FT_Stream_OpenLZW': inconsistent dll linkage
+  ..\..\..\include\freetype/ftlzw.h(88): note: see previous definition of 'FT_Stream_OpenLZW' (compiling source file ..\..\..\src\lzw\ftlzw.c)
+..\..\..\src\gzip\ftgzip.c(625): warning C4273: 'FT_Stream_OpenGzip': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgzip.h(91): note: see previous definition of 'FT_Stream_OpenGzip' (compiling source file ..\..\..\src\gzip\ftgzip.c)
+..\..\..\src\gzip\ftgzip.c(731): warning C4273: 'FT_Gzip_Uncompress': inconsistent dll linkage
+  ..\..\..\include\freetype/ftgzip.h(137): note: see previous definition of 'FT_Gzip_Uncompress' (compiling source file ..\..\..\src\gzip\ftgzip.c)
+  pfr.c
+  psaux.c
+  pshinter.c
+  psmodule.c
+  raster.c
+  sfnt.c
+d:\rh\tcax\freetype-2.9\src\sfnt\ttload.c : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\sfnt\sfnt.c)
+  smooth.c
+  truetype.c
+d:\rh\tcax\freetype-2.9\src\truetype\ttinterp.c(584): warning C4273: 'TT_New_Context': inconsistent dll linkage (compiling source file ..\..\..\src\truetype\truetype.c)
+  d:\rh\tcax\freetype-2.9\src\truetype\ttinterp.h(488): note: see previous definition of 'TT_New_Context' (compiling source file ..\..\..\src\truetype\truetype.c)
+  type1.c
+d:\rh\tcax\freetype-2.9\src\truetype\ttinterp.c(7630): warning C4273: 'TT_RunIns': inconsistent dll linkage (compiling source file ..\..\..\src\truetype\truetype.c)
+  d:\rh\tcax\freetype-2.9\src\truetype\ttinterp.h(531): note: see previous definition of 'TT_RunIns' (compiling source file ..\..\..\src\truetype\truetype.c)
+d:\rh\tcax\freetype-2.9\src\truetype\ttobjs.c(800): warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss (compiling source file ..\..\..\src\truetype\truetype.c)
+  type42.c
+d:\rh\tcax\freetype-2.9\src\truetype\ttgxvar.c(2137): warning C4701: potentially uninitialized local variable 'fvar_head' used
+  winfnt.c
+  ftdebug.c
+  freetype.vcxproj -> D:\RH\TCAX\freetype-2.9\builds\windows\vc2010\..\..\..\objs\Win32\Release Static\freetype.lib

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,21 @@
     <ProjectGuid>{418B6CFB-69D7-47B9-9E8B-19039D9E5DB0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>tcax</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -42,8 +45,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Program Files\Python32\include;.\FreeType;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Program Files\Python32\libs;..\..\..\..\..\libtcas\trunk\src\alpha\tcas\zlib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\Python36-32\include;.\FreeType;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\Python36-32\libs;..\..\libtcas\tcas\zlib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,10 +84,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\hla_z_comp.c" />
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\rb.c" />
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\tcas.c" />
-    <ClCompile Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\vector.c" />
+    <ClCompile Include="..\..\libtcas\tcas\hla_z_comp.c" />
+    <ClCompile Include="..\..\libtcas\tcas\rb.c" />
+    <ClCompile Include="..\..\libtcas\tcas\tcas.c" />
+    <ClCompile Include="..\..\libtcas\tcas\vector.c" />
     <ClCompile Include="libmap\strmap.c" />
     <ClCompile Include="libmap\tccmap.c" />
     <ClCompile Include="libsyl\syl.c" />
@@ -97,10 +100,10 @@
     <ClCompile Include="tcax_cmd.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\hla_z_comp.h" />
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\rb.h" />
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\tcas.h" />
-    <ClInclude Include="..\..\..\..\..\libtcas\trunk\src\alpha\tcas\vector.h" />
+    <ClInclude Include="..\..\libtcas\tcas\hla_z_comp.h" />
+    <ClInclude Include="..\..\libtcas\tcas\rb.h" />
+    <ClInclude Include="..\..\libtcas\tcas\tcas.h" />
+    <ClInclude Include="..\..\libtcas\tcas\vector.h" />
     <ClInclude Include="libmap\strmap.h" />
     <ClInclude Include="libmap\tccmap.h" />
     <ClInclude Include="libsyl\syl.h" />
